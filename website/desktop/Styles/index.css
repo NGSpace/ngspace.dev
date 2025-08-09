@@ -1,0 +1,103 @@
+#ContentPane {
+	width: 70%;
+	color: lightgray;
+	font: bold 150px monospace, Fira Mono, serif;
+	transition: width 0.3s;
+}
+
+html {
+	scrollbar-transition: smooth;
+	scroll-behavior: smooth;
+}
+
+#aboutmespan {
+	background: linear-gradient(180deg, #fFFFFF 55%, #ffed4b 10%);
+	color: transparent;
+	background-clip: text;
+	-webkit-background-clip: text;
+}
+body {
+	margin: 0px;
+	background-color: #606060;
+	background-color: #383838;
+	background-color: rgb(32, 32, 32);
+	background-size: 100% max(100%,2900px);
+}
+.tab {
+	font-size: 0px;
+	margin: 0;
+	padding: 0;
+	border: none;
+	border-width: 5px;
+	line-height:100%;
+}
+#borderbottom {
+	font: initial;
+	width: 70%;  /* or 100px */
+	margin: 0;
+	padding: 0;
+	border-top: solid gray 5px;
+}
+#borderbottom a {
+	font: bold 40px monospace, Fira Mono, serif;
+	color:lightblue;
+	padding: 15px;
+	padding-left: 15px;
+	text-decoration:none;
+}
+#borderbottom a:hover {
+	text-decoration:underline;
+}
+.tab button {
+	font: 20px consolas, Fira Mono, serif;
+	background-color: inherit;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 12px 16px;
+	margin-left: 5px;
+	transition: 0.3s;
+	border-collapse: collapse;
+	background-color: #f1f1f1;
+  	border-top-left-radius: 15px;
+  	border-top-right-radius: 15px;
+}
+.tab button:hover {
+	background-color: #ddd;
+}
+.tab button.active {
+	background-color: #929292;
+}
+.tabcontent {
+	display: none;
+	padding: 0px 0px;
+	border: none;
+	font-size: 0;
+}
+.ImageAndText {
+	width: fit-content;
+	text-wrap: nowrap;
+	vertical-align: 5px;
+}
+.ImageAndText span {
+	display: inline;
+	text-wrap: nowrap;
+	vertical-align: top;
+	font-size: 60px;
+}
+.Text p {
+	text-align: left;
+}
+#ContentPane .Text {
+	display: grid;
+	align-items: center;
+	justify-content: center;
+}
+#ContentPane .Text a:hover {
+	text-decoration-line: underline;
+}
+#ContentPane .Text a {
+	font-size: 55px;
+	color: pink;
+	text-decoration: none;
+}

@@ -1,0 +1,55 @@
+
+#ContentPane {
+	width: 70%;
+	color: lightgray;
+	background-size: 100% max(100%,2900px);
+	font: bold 150px monospace, Fira Mono, serif;
+	transition: width 0.3s;
+}
+#ContentPane img {width:66%;}
+
+#ContentPane {
+	margin: 0px;
+	padding: 0px;
+	font-size: 0px;
+}
+#ContentPane a:hover {
+	text-decoration-line: underline;
+	color: #FF6A00;
+}
+#ContentPane a {
+	color: #FF6A00;
+	text-decoration: none;
+}
+#ContentPane .Text {
+	font-size: 0px;
+	display: grid;
+	align-items: center;
+	justify-content: center;
+}
+#ContentPane p {
+	align-items: center;
+	vertical-alignment: middle;
+	font-size:30px;
+	overflow: hidden;
+}
+#ContentPane h1 {
+	color: lightgray;
+	font: bold 40px monospace, Fira Mono, serif;
+}
+#NNUEditImage {
+	width: 42px;
+	height: 42px;
+}
+#NNUEditTitle {
+	font-size:40px;
+	background: radial-gradient(#FF6A00, #db233c);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: transparent;
+}
+#NNUEditLogo {
+	width: 40px;
+	height:40px;
+}

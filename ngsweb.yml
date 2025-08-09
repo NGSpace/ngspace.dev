@@ -1,0 +1,52 @@
+ngsweb:
+    default_title: "NGS's wonderland!"
+    mobile_defaults_to_desktop: true
+    desktop_webstructure:
+        "[/404]":
+            servertype: "raw_file"
+            custom:
+                file: "website/desktop/404.html"
+                contenttype: "text/html"
+        "[/*]":
+            servertype: "html_folder"
+            custom:
+                headInjectFile: "website/GTagInjection.txt"
+                sourcefolder: "website/desktop/html"
+                favicon: "/Images/ngs.webp"
+        "[/Styles/*]":
+            servertype: "css_folder"
+            custom:
+                sourcefolder: "website/desktop/Styles"
+        "[/Images/*]":
+            servertype: "image_folder"
+            custom:
+                sourcefolder: "website/desktop/Images"
+        "[/Scripts/*]":
+            servertype: "js_folder"
+            custom:
+                sourcefolder: "website/desktop/Scripts"
+        "[/hudder/*]":
+            servertype: "wiki_folder"
+            custom:
+                headInjectFile: "website/GTagInjection.txt"
+                sourcefolder: "website/desktop/hudder"
+                favicon: "/hudder/favicon.ico"
+                base_file: "website/desktop/hudder/base.html"
+        "[/hudder/Images/*]":
+            servertype: "image_folder"
+            custom:
+                sourcefolder: "website/desktop/hudder/Images"
+        "[/hudder/base.js]":
+            servertype: "raw_file"
+            custom:
+                file: "website/desktop/hudder/base.js"
+                contenttype: "text/javascript"
+        "[/hudder/favicon.ico]":
+            servertype: "raw_file"
+            custom:
+                file: "website/desktop/hudder/favicon.ico"
+                contenttype: "image/vnd.microsoft.icon"
+server:
+    port: 9090
+    http2:
+        enabled: true

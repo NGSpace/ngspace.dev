@@ -1,0 +1,133 @@
+<title>Hudder wiki - Basic hud</title>
+<h1 style="margin-top: 0px;margin-bottom: 0px;">How to make your own hud</h1>
+<hr><br/>
+
+<h2>Creating the hud</h2>
+<style>
+	ol li {
+		margin-top: 0px;
+		margin-bottom: 10px;
+	}
+</style>
+<hr>
+<ol>
+	<li>Locating your hudder config folder: you can do this simply by going to Hudder's options menu and clicking the text at the
+	bottom of "general". After that your file explorer should open up with Hudder's config folder!</li>
+	
+	<li>Creating the hudder file: Simply create a file (or use one that already exists [don't modify hud.json!]), open it in your
+	preferred editor (let's be honest it's prob notepad) and start writing!</li>
+	
+	<li>Open Hudder's options menu and make sure that the "main file" option is set to your hud file's name.</li>
+	
+	<li>Step 4 - Start writing your hud!</li>
+</ol>
+
+
+<h1>Actually writing the hud</h1>
+<hr><br>
+<h2 id="text">Normal text</h2>
+<hr><br>
+You just write it, writing "words are beautiful" in the file will show "words are beautiful" in game.
+<br><br>
+<h2 id="color">Character escaping and Color Codes</h2>
+<hr><br>
+
+Most of what you'll write will probably be normal text, variables, conditions etc. But in some cases you'll want to use reserved
+characters (';','%','#','&amp;','{') as normal text (ex. you want to use '%' without Hudder considering it a condition). In those cases
+you'll need to add a backslash before the character (ex. '\%').
+<br><br>
+Color codes work as minecraft intended.
+
+<br><br>
+
+<h2 id="sections">Text sections</h2>
+<hr><br>
+
+You want to put text in the bottom right corner instead of top left? no problemo! use sections like
+<inline-code>;bottomright;</inline-code> (note that only text after it will be affected).
+<br>
+The following example will display text in the top left corner, then in the bottom right corner, then in the top left corner again:
+<code>This will be displayed in the top left corner!
+;bottomright;
+This will be displayed in the bottom right corner!
+;topright;
+This will be displayed in the top left corner again!</code>
+<br>
+The following sections exist:
+<table>
+	<tr>
+		<td><inline-code>;topleft;</inline-code></td>
+	</tr>
+	<tr>
+		<td><inline-code>;topright;</inline-code></td>
+	</tr>
+	<tr>
+		<td><inline-code>;bottomleft;</inline-code></td>
+	</tr>
+	<tr>
+		<td><inline-code>;bottomright;</inline-code></td>
+	</tr>
+</table>
+
+<br>
+if you want to control the exact position of your text, you can use the <inline-code>;text;</inline-code> method, more information on it can be found in the method list.
+
+<br><br>
+
+<h2 id="variables">Basic variables (fps, memory usage etc)</h2>
+<hr><br>
+Let's say you want to add some real basic stuff like an fps count and all that stuff, well it's pretty simple! all you need to do
+is write the name of the variable between curly brackets and Hudder will do the rest!
+(ex. <inline-code>{fps}</inline-code>, <inline-code>{used_memory}</inline-code> etc.)
+<br><br>
+A full list of variables can be found <a href="varlist.html">here!</a>
+
+<br><br>
+
+<h2 id="conditions">Basic conditions</h2>
+<hr><br>
+So, you got a fancy new FPS meter but it still doesn't feel quite right yet, you want to know when you need to buy a new computer
+because your frame rate is 999 instead of 1000? Use conditions! Conditions have a real structureand if that structure is not followed
+unexpected behavior can occur! But not to fear! I am here to help you understand them! Conditions are structured like this (Note there
+is no limit to the number of else I just put 2 cuz I am lazy, could be 1, 2, 3, how many you possibly need):
+<br><br>
+<code>%condition 1, "condition 1 is true", condition 2, "condition 2 is true", "neither condition is true"%</code>
+<br>Want some examples? well here ya go:
+<br><br>
+<inline-code>&%fps&#60;30, "4", fps&#60;60, "e", "a"%{fps}</inline-code> - This will show the fps meter in different colors depending if it's
+below 30 or 60 fps.
+<br><br>
+<inline-code>%ping&gt;5, "{ping}", ""%</inline-code> - This will show your ping only if it is above 5!
+<br><br>
+<inline-code>%is_slime, "Slime chunk!"%</inline-code> - This will show "Slime chunk!" if you are standing inside a slime chunk.
+
+<br><br>
+
+<h2 id="adv_variables">Advanced variables and Functions</h2>
+<hr>
+<note>Functions are available at Hudder version 5.0.0 or above!</note>
+
+Let's do this one quickly:
+<br><br>
+Setting custom variable values - <inline-code>{variable=10}</inline-code> will set <inline-code>{variable}</inline-code> to 10.
+<inline-code>{var=fps}</inline-code> will set var to your fps count.
+<br>
+Math - <inline-code>{math_result=fps+10+math_result}</inline-code> will do as you could've guessed, math.
+use * for multiplications, / for divisions and % for remainder.
+<br>
+Functions - <inline-code>{math_result="text".length()+2}</inline-code> will set math_result to the length of the word "text" plus 2.
+<br><br>
+All of those could be used together if needed, you could pass a function to a function (ex. int(str(10)) which returns 10) until infinity, etc.
+<br>
+A full list of functions is provided <a href="functions.html">here!</a>
+<br><br>
+
+<h2 id="methods">Using methods</h2>
+<hr><br>
+
+you can use <inline-code>;[method], and, it's, parameters;</inline-code> to call builtin methods.they are built similar to conditions
+except the parameters are not predefinied and can be variables (which can be changed as specified in the section above).
+
+<br><br>
+A full list of variables can be found <a href="methodlist.html">here!</a>
+<br><br><br>

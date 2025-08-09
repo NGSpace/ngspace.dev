@@ -1,0 +1,38 @@
+#topbar {
+	position: fixed;
+	background-color: #383838;
+	color: lightgray;
+	font: bold 6.7vh monospace, Fira Mono, serif;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	text-align: center;
+	top: 0px;
+	background-color: #101010;
+	border-bottom: gray ;
+}
+#topbar img {
+	position: absolute;
+	left: 0px;
+	padding-top: 1.2vh;
+	padding-left: 1.2vh;
+	height: 80%;
+}
+#topbar #TitleNGS {
+	color: red;
+	background: linear-gradient(to left, blue, red);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-stroke: 2px pink;
+	color: transparent;
+}
+#topbar #TitleS {
+	color: gray;-webkit-text-stroke: 1px darkgray;
+}
+#topbar #TitleLAND {
+	font-size: 6.3vh;
+	color: #ed0533;
+}
+#ContentPane {
+	margin-top: 10vh;
+}

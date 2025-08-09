@@ -1,0 +1,255 @@
+<title>Hudder wiki - Advanced hud</title>
+<note>"Advanced" is a strong word, the contents of this page was written to be understood by everyone, but it may not be useful to everyone therfore I deemed it "advanced".</note>
+<h1>Advanced hud</h1>
+<hr>
+	
+<h2 id="adv_conds">If statements and loops</h2>
+<hr><br>
+<note>The indentation must be of a consistent type or unexpected issues may occur.</note>
+<note><inline-code>#for</inline-code> loops are only available in Hudder version 8.0.0 and above!</note>
+<br>
+You can use <inline-code>#if</inline-code> to do large if conditions (unlike inline-conditions you can only have 1 condition without an else statement)
+<br><br>
+<inline-code>#while</inline-code> is similar except it repeats itself until the condition is false.
+You can also use <inline-code>{break}</inline-code> to stop the execution of the while loop early without stopping the execution
+of the rest of the hud.
+<br><br>
+
+Here is an example of both (Please do not use this, it will likely crash your game):
+
+<code>#if fps&#60;60
+		{math=10+20}
+		{crashmypc=true}
+{xx=0}
+{yy=0}
+#while crashmypc
+		#if yy&#62;height
+			{crashmypc=false}
+		;hand, xx,yy,1;
+		{xx=xx+16}
+		#if xx>width
+			{yy=yy+16}
+			{xx=0}
+</code>
+<br>
+Magnificent, isn't it? Looks like I peaked early when I came up with this piece of art.
+<br><br>
+
+
+<inline-code>#for</inline-code> loops work in 2 different ways, it can either:<br>
+Loop from a specific number to another:
+<code>#for num in range(0,10):
+	;alert, num;</code>
+Which will send the user all the numbers between 0 (inclusive) and 10 (exclusive) in order.<br>
+<br>
+Or it could loop through an array:
+<code>#for i in ["I want", "to", 0x6B696C6C, "myself"]:
+	;alert, num;</code>
+Which will send the user all the values in the array in order (from left to right).
+<br><br>
+<inline-code>{break}</inline-code> in a <inline-code>#for</inline-code> loop works in a similar way to <inline-code>#while</inline-code>.
+<br><br>
+
+
+
+<h2 id="strings">Strings</h2>
+<hr>
+<note>Strings are pieces of text.</note>
+Any variable surrounded by double quotes (ex. <inline-code>"String"</inline-code>) will be considered a string.
+<br><br>
+You can use the '+' operator to combine strings, ex: <inline-code>"X: " + x</inline-code> will return a string that is "X: [the x position of the player]"
+<br><br>
+Strings also have plenty of functions in them that allow you to do all sorts of things, among those functions are:
+<table>
+	<tr>
+		<th>Function</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><inline-code>[String].charAt(Number)</inline-code></td>
+		<td>Returns the char at the specified index.</td>
+	</tr>
+	<tr>
+		<td><inline-code>[String].contains(String)</inline-code></td>
+		<td>Returns true if and only if this string contains the specified sequence of char values.</td>
+	</tr>
+	<tr>
+		<td><inline-code>[String].endsWith(String)</inline-code></td>
+		<td>If this string ends with the specified suffix.</td>
+	</tr>
+	<tr>
+		<td><inline-code>[String].equalsIgnoreCase(String)</inline-code></td>
+		<td>Compares this String to another String, ignoring case considerations.</td>
+	</tr>
+	<tr>
+		<td><inline-code>[String].length()</inline-code></td>
+		<td>Returns the length of this string.</td>
+	</tr>
+	<tr>
+		<td><inline-code>[String].repeat(Number)</inline-code></td>
+		<td>Returns a string whose value is the concatenation of this string repeated requested amount of times.</td>
+	</tr>
+	<tr>
+		<td><inline-code>[String].startsWith(String)</inline-code></td>
+		<td>Tests if this string starts with the specified prefix.</td>
+	</tr>
+	<tr>
+		<td><inline-code>[String].substring(Number)</inline-code></td>
+		<td>Returns a string that is a substring of this string.</td>
+	</tr>
+	<tr>
+		<td><inline-code>[String].substring(Number, Number)</inline-code></td>
+		<td>Returns a string that is a substring of this string.</td>
+	</tr>
+	<tr>
+		<td><inline-code>[String].toCharArray()</inline-code></td>
+		<td>Converts this string to a new character array.</td>
+	</tr>
+	<tr>
+		<td><inline-code>[String].toLowerCase()</inline-code></td>
+		<td>Returns a new string where all of the characters in this String are lower case.</td>
+	</tr>
+	<tr>
+		<td><inline-code>[String].toUpperCase()</inline-code></td>
+		<td>Returns a new string where all of the characters in this String are upper case.</td>
+	</tr>
+	<tr>
+		<td><inline-code>[String].trim()</inline-code></td>
+		<td>Returns a string whose value is this string, with all leading and trailing space removed.</td>
+	</tr>
+</table>
+</code>
+<br><br>
+
+<h2 id="arrays">Arrays</h2>
+<hr>
+<note>Arrays are available at Hudder version 5.5.0 or above!</note>
+<note>The first item in an array starts at 0!</note>
+An array is a list of values with that can be of any length (up to infinity [aka how much your computer can handle]).<br>
+<br>
+You can use <inline-code>[<i>values,seperated,by,commas</i>]</inline-code> to create an array that stores a list of values of any type.
+<br>To read the value at a certain spot in an array you must use <inline-code><i>arrayname</i>[<i>position</i>]</inline-code>.
+<br>To set a value at a certain point you must do <inline-code><i>arrayname</i>[<i>position</i>]=<i>value</i></inline-code>.
+<br>Arrays have a fixed size which can be read using the <inline-code>length</inline-code> function.
+<br>Arrays can be expanded be inserting a value after the last point in the array (You can't skip points, if an array is of length 6 and you wish to expand it, you must set a value at point 7, before you set a value at point 8)
+<br><br>here is a simple example:
+<code>Define an array with 3 objects inside it (the number 4 and the number 2 and the word "Text"):
+{arr=[4,2,"Text"]}
+
+Get the number of objects within the array (3):
+{length(arr)}
+
+Replace the number 2 (at position 1) with the number 3:
+{arr[1]=3}
+
+Read the first value (at position 0) of the array:
+{arr[0]}
+
+Add an object in the 4th position of the array:
+{arr[3]="4th object"}
+
+Read the new length of the array (4):
+{length(arr)}
+</code>
+
+<br><br>
+
+<h2 id="adv_hashdef">Creating your own methods/functions</h2>
+<hr>
+
+You can use <inline-code>#def</inline-code> to write your own methods. here is an example:
+<code>#def divide, num1, num2
+		{result = num1/num2}
+;divide, 4, 2;
+{result}
+</code><br>
+You can also use <inline-code>{break}</inline-code> to stop the execution of the method early without stopping the execution
+of the rest of the hud.<br><br>
+
+if you add a <inline-code>;return, [value];</inline-code>, it will become a function instead:
+<code>#def divide, num1, num2
+		;return, num1/num2;
+{divide(4,2)}
+</code>
+
+<br><br>
+
+<h2 id="break">The Break variable</h2>
+<hr>
+The <inline-code>{break}</inline-code> variable is special because it's not actually a variable, once it is used, execution of the hud will stop.<br><br>
+If used in <inline-code>#while</inline-code> loop or a <inline-code>#def</inline-code> method, then instead of stopping the execution of the hud it will just stop the execution of the while loop or def method.
+<note>The above statement is only true for #while and #def, not #if.</note>
+Example:
+<code>#while _i&#60;10
+	{_i++}
+	#if _i==5
+		{break}
+{_i}</code>
+Will set {_i} to 5
+
+<br><br>
+
+<h2 id="operators">Inc, Dec and Boolean operators</h2>
+<hr>
+You can use <inline-code>{_i++}</inline-code> to increase _i's value by 1 and then return the it's old value, <inline-code>{_i--}</inline-code> does the same but decreases by 1.
+<br><br>
+You can use <inline-code>{++_i}</inline-code> to increase _i's value by 1 and then return the it's new value, <inline-code>{--_i}</inline-code> does the same but decreases by 1.
+<br><br>
+You can use <inline-code>{!_i}</inline-code> to return the opposite value of _i, if it is true then it will return false, if it is false then it will return true.
+<br><br>
+You can use <inline-code>{boolean2&&boolean1}</inline-code> to return true if both booleans are true
+<br><br>
+You can use <inline-code>{boolean2||boolean1}</inline-code> to return true if either booleans are true
+
+<br><br>
+
+<h2 id="components">Item components</h2>
+<note>Works in JavaScript, the values are a property of the returned object.</note>
+<hr>
+The <inline-code>getItem([Number slot])</inline-code> function returns an object that contains the following properties:<br>
+<code>name - The name of the item
+item_name - The name of the item type (Even if name was modified with anvil/commands)
+repair_cost - The repair cost of the item
+damage - How much the item has been damaged
+max_damage - How much the item can bee damaged
+max_stack_size - The max stack size of the item
+enchantment_glint_override - Imma be honest idk what this one does, check the minecraft wiki if it's important.
+trim - An object containing the following 3 properties:
+  - material - The name of the material used on the armor piece's trim
+  - pattern - The name of the pattern used on the armor piece's trim
+  - showintooltip - Whether it should show the armor trim in the item's tooltip (idk how this would be useful but it was easy to add so I added it.)
+enchantable - If not null, items with the component can be enchanted in an enchanting table.
+lore - An array of "Text" objects (use their getString function if you need a string)
+rarity - Can be of the following values: common, uncommon, rare and epic.
+unbreakable - If it is not null then the tool is unbreakable.
+custom_data - Custom NBT data attached to the object... in the form of a string.
+enchantments - Contains every enchantment on the object, if the enchantment is null then it is not present:
+  - [Enchantment name] - The enchantment
+    - level - The level of the enchantment on the item.
+</code>
+
+Those properties can be navigated with the '.' character
+<br><br>
+
+Example:
+<code>Your selected item has {getItem(selectedslot).durability} durability left!
+</code>
+
+<br><br>
+
+<h2 id="sys_var">;no_sys_var; and ;sys_var; methods</h2>
+<hr>
+<warning>Probably broken, advised against using.</warning>
+By default if you tried to do <inline-code>{x=10}</inline-code> you'll get an error saying you can't modify system variables.
+<br>
+Or you might make a function/method where the names of one of the parameters is "x" or "y",
+at which point accessing the value becomes impossible since it will always return the x or y position of the player.
+<br><br>
+If you know how, you can use JavaScript to bypass the issue but if you wanna stick with Hudder you can use <inline-code>;no_sys_var;</inline-code> (and it's inverse <inline-code>;sys_var;</inline-code>)
+<br><br>
+<inline-code>;no_sys_var;</inline-code> will disable implicit access of system variables allowing you to define whatever variables you'd like and you'll always know the variables you are accessing are defined by you and not Hudder.
+<br><br>
+Of course, this also means you'll have to access system variables explicitly using the <a href="functions.html#variables">Variable reading functions</a>.
+<br><br>
+
+<br><br><br>
