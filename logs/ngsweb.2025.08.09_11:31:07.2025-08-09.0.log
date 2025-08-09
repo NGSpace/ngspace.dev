@@ -1,0 +1,123 @@
+2025-08-09 11:31:08 INFO  [main] dev.ngspace.ngsweb.NgswebApplication - Starting NgswebApplication v0.1.0 using Java 22.0.1 with PID 181831 (/mnt/datassd/Projects/web/ngspace.dev/ngsweb.jar started by computer in /mnt/datassd/Projects/web/ngspace.dev)
+2025-08-09 11:31:08 INFO  [main] dev.ngspace.ngsweb.NgswebApplication - No active profile set, falling back to 1 default profile: "default"
+2025-08-09 11:31:09 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 9090 (http)
+2025-08-09 11:31:09 INFO  [main] org.apache.coyote.http11.Http11NioProtocol - The ["http-nio-9090"] connector has been configured to support HTTP upgrade to [h2c]
+2025-08-09 11:31:09 INFO  [main] org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-9090"]
+2025-08-09 11:31:09 INFO  [main] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2025-08-09 11:31:09 INFO  [main] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-08-09 11:31:09 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-08-09 11:31:09 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1696 ms
+2025-08-09 11:31:10 INFO  [main] dev.ngspace.ngsweb.controllers.NGSWebController - Processing desktop pageserver: /Scripts/*
+2025-08-09 11:31:10 INFO  [main] dev.ngspace.ngsweb.controllers.NGSWebController - Processing desktop pageserver: /hudder/Images/*
+2025-08-09 11:31:10 INFO  [main] dev.ngspace.ngsweb.controllers.NGSWebController - Processing desktop pageserver: /hudder/favicon.ico
+2025-08-09 11:31:10 INFO  [main] dev.ngspace.ngsweb.controllers.NGSWebController - Processing desktop pageserver: /hudder/base.js
+2025-08-09 11:31:10 INFO  [main] dev.ngspace.ngsweb.controllers.NGSWebController - Processing desktop pageserver: /*
+2025-08-09 11:31:10 INFO  [main] dev.ngspace.ngsweb.controllers.NGSWebController - Processing desktop pageserver: /Styles/*
+2025-08-09 11:31:10 INFO  [main] dev.ngspace.ngsweb.controllers.NGSWebController - Processing desktop pageserver: /Images/*
+2025-08-09 11:31:10 INFO  [main] dev.ngspace.ngsweb.controllers.NGSWebController - Processing desktop pageserver: /hudder/*
+2025-08-09 11:31:10 INFO  [main] dev.ngspace.ngsweb.controllers.NGSWebController - Processing desktop pageserver: /404
+2025-08-09 11:31:10 INFO  [main] dev.ngspace.ngsweb.controllers.NGSWebController - Processing mobile pageserver: /404
+2025-08-09 11:31:10 INFO  [main] org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-9090"]
+2025-08-09 11:31:10 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 9090 (http) with context path '/'
+2025-08-09 11:31:10 INFO  [main] dev.ngspace.ngsweb.NgswebApplication - Started NgswebApplication in 3.511 seconds (process running for 4.218)
+2025-08-09 11:31:11 INFO  [http-nio-9090-exec-1] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-09 11:31:11 INFO  [http-nio-9090-exec-1] org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-08-09 11:31:11 INFO  [http-nio-9090-exec-1] org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-08-09 11:31:11 INFO  [http-nio-9090-exec-1] dev.ngspace.ngsweb.controllers.NGSWebController - Request received:
+- IP: 127.0.0.1
+- Method: GET
+- URI: /hudder/
+- Query: null
+- User-Agent: Mozilla/5.0 (Mobile; Nokia 8110 4G; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.5
+- Referer: http://localhost:9090/?p=Highlight
+- Accept-Language: en-US,en;q=0.5
+- X-Forwarded-For: null
+- Session ID: no session
+- Authenticated User: anonymous
+
+2025-08-09 11:31:11 INFO  [http-nio-9090-exec-2] dev.ngspace.ngsweb.controllers.NGSWebController - Request received:
+- IP: 127.0.0.1
+- Method: GET
+- URI: /hudder/base.js
+- Query: null
+- User-Agent: Mozilla/5.0 (Mobile; Nokia 8110 4G; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.5
+- Referer: http://localhost:9090/hudder/
+- Accept-Language: en-US,en;q=0.5
+- X-Forwarded-For: null
+- Session ID: no session
+- Authenticated User: anonymous
+
+2025-08-09 11:31:11 INFO  [http-nio-9090-exec-3] dev.ngspace.ngsweb.controllers.NGSWebController - Request received:
+- IP: 127.0.0.1
+- Method: GET
+- URI: /hudder/Images/Hudder.webp
+- Query: null
+- User-Agent: Mozilla/5.0 (Mobile; Nokia 8110 4G; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.5
+- Referer: http://localhost:9090/hudder/
+- Accept-Language: en-US,en;q=0.5
+- X-Forwarded-For: null
+- Session ID: no session
+- Authenticated User: anonymous
+
+2025-08-09 11:31:11 INFO  [http-nio-9090-exec-4] dev.ngspace.ngsweb.controllers.NGSWebController - Request received:
+- IP: 127.0.0.1
+- Method: GET
+- URI: /hudder/Images/discord.webp
+- Query: null
+- User-Agent: Mozilla/5.0 (Mobile; Nokia 8110 4G; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.5
+- Referer: http://localhost:9090/hudder/
+- Accept-Language: en-US,en;q=0.5
+- X-Forwarded-For: null
+- Session ID: no session
+- Authenticated User: anonymous
+
+2025-08-09 11:31:12 INFO  [http-nio-9090-exec-5] dev.ngspace.ngsweb.controllers.NGSWebController - Request received:
+- IP: 127.0.0.1
+- Method: GET
+- URI: /hudder/
+- Query: null
+- User-Agent: Mozilla/5.0 (Mobile; Nokia 8110 4G; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.5
+- Referer: http://localhost:9090/?p=Highlight
+- Accept-Language: en-US,en;q=0.5
+- X-Forwarded-For: null
+- Session ID: no session
+- Authenticated User: anonymous
+
+2025-08-09 11:31:12 INFO  [http-nio-9090-exec-6] dev.ngspace.ngsweb.controllers.NGSWebController - Request received:
+- IP: 127.0.0.1
+- Method: GET
+- URI: /hudder/base.js
+- Query: null
+- User-Agent: Mozilla/5.0 (Mobile; Nokia 8110 4G; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.5
+- Referer: http://localhost:9090/hudder/
+- Accept-Language: en-US,en;q=0.5
+- X-Forwarded-For: null
+- Session ID: no session
+- Authenticated User: anonymous
+
+2025-08-09 11:31:12 INFO  [http-nio-9090-exec-7] dev.ngspace.ngsweb.controllers.NGSWebController - Request received:
+- IP: 127.0.0.1
+- Method: GET
+- URI: /hudder/Images/Hudder.webp
+- Query: null
+- User-Agent: Mozilla/5.0 (Mobile; Nokia 8110 4G; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.5
+- Referer: http://localhost:9090/hudder/
+- Accept-Language: en-US,en;q=0.5
+- X-Forwarded-For: null
+- Session ID: no session
+- Authenticated User: anonymous
+
+2025-08-09 11:31:12 INFO  [http-nio-9090-exec-8] dev.ngspace.ngsweb.controllers.NGSWebController - Request received:
+- IP: 127.0.0.1
+- Method: GET
+- URI: /hudder/Images/discord.webp
+- Query: null
+- User-Agent: Mozilla/5.0 (Mobile; Nokia 8110 4G; rv:48.0) Gecko/48.0 Firefox/48.0 KAIOS/2.5
+- Referer: http://localhost:9090/hudder/
+- Accept-Language: en-US,en;q=0.5
+- X-Forwarded-For: null
+- Session ID: no session
+- Authenticated User: anonymous
+
+2025-08-09 11:31:13 INFO  [SpringApplicationShutdownHook] org.springframework.boot.web.embedded.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-09 11:31:13 INFO  [tomcat-shutdown] org.springframework.boot.web.embedded.tomcat.GracefulShutdown - Graceful shutdown complete
