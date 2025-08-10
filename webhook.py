@@ -14,7 +14,7 @@ def webhook():
     signature = request.headers.get("X-Hub-Signature-256")
     if not signature or not verify_signature(request.data, signature):
         abort(403)
-    subprocess.Popen(["/home/user/git-update.sh"])
+    subprocess.Popen(["pull-git.sh"])
     return "OK", 200
 
 if __name__ == "__main__":
