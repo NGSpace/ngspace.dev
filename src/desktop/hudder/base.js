@@ -1,9 +1,5 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-	contents = document.body.innerHTML;
-	document.body.innerHTML = basehtml;
-	document.getElementById("contents").innerHTML = contents;
-	document.body.style = "background-color: #202020";
-
+	
 	var notes = document.getElementsByTagName('note');
 	for (var i = 0; i < notes.length; i++) {
 		let content = notes[i].innerHTML;
@@ -92,4 +88,24 @@ document.addEventListener("DOMContentLoaded", function (event) {
 		result += "<span color=\"" + color + "\">" + builder + "</span>";
 		codes[j].innerHTML = result;
 	}
+	
+	calchash();
 });
+
+var prevelem;
+function calchash() {
+	if (prevelem) {
+		prevelem.style.background = "none";
+		prevelem.style.filter = "none";
+		prevelem = null;
+	}
+	if (window.location.hash) {
+		var elem = document.getElementById(window.location.hash.substring(1));
+		elem.style.background = "#202020";
+		elem.style.filter = "invert(100%)";
+		prevelem = elem;
+	}
+}
+
+addEventListener("hashchange", (event) => {});
+onhashchange = (event) => { calchash(); };

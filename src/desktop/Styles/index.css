@@ -1,7 +1,7 @@
 #ContentPane {
 	width: 70%;
 	color: lightgray;
-	font: bold 150px monospace, Fira Mono, serif;
+	font: bold 80px monospace, Fira Mono, serif;
 	transition: width 0.3s;
 }
 
@@ -11,10 +11,8 @@ html {
 }
 
 #aboutmespan {
-	background: linear-gradient(180deg, #fFFFFF 55%, #ffed4b 10%);
-	color: transparent;
-	background-clip: text;
-	-webkit-background-clip: text;
+	color: wheat;
+	font-size: 30px;
 }
 body {
 	margin: 0px;
@@ -72,7 +70,6 @@ body {
 	display: none;
 	padding: 0px 0px;
 	border: none;
-	font-size: 0;
 }
 .ImageAndText {
 	width: fit-content;

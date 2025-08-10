@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>NGS's land</title>
-	
 	<link rel="stylesheet" href="Styles/index.css">
-	<link rel="stylesheet" href="Styles/projects.css">
 	<link rel="stylesheet" href="Styles/GamesList.css">
 	<link rel="stylesheet" href="Styles/titlebar.css">
 	
 	<script>
-		const Def = "Highlight";
+		const Def = "Projects";
 		function openTab(evt, TabName) {
 			var i, tabcontent, tablinks;
 			tabcontent = document.getElementsByClassName("tabcontent");
@@ -30,7 +27,7 @@
 </head>
 <body onload="load()">
 	<div id="topbar">
-		<a href="index.html"><img src="Images/ngs.webp"></a>
+		<a href="index.html"><img src="Images/ngs.webp" id="ngslogo"></a>
 		<span id="TitleNGS">NGS</span><span id="TitleS">'s</span>
 		<span id="TitleLAND">land</span></span>
 	</div>
@@ -39,56 +36,29 @@
 			
 			<div class="tab">
 			
-				<button id="HighlightButton" class="tablinks"onclick="openTab(this, 'Highlight')">Highlight</button>
+				<button id="BlogButton" class="tablinks"onclick="openTab(this, 'Blog')">Blog</button>
 				<button id="ProjectsButton" class="tablinks"onclick="openTab(this, 'Projects')">Projects</button>
 				<button id="AboutMeButton" class="tablinks"onclick="openTab(this, 'AboutMe')">About me</button>
 				
 				<div id="borderbottom"></div>
 			
 			</div>
-			<div id="Highlight" class="tabcontent">
-				<div id="HighlightContentPane" height="fit-content">
-					<a id="HudderTitle" class="ImageAndText" style="text-decoration: none;" href="https://github.com/ngspace/Hudder">
-						<image id="HudderLogo" style="width:80px" src="Images/Hudder.webp">
-						<span id="Hudder" style="color: #800080;">&nbsp;Hudder</span>
-					</a>
-					<div style="text-align:left;font-size: 30px;" class="Text">
-						<center>
+			<div id="Blog" class="tabcontent">
+				<div id="BlogContentPane" height="fit-content">
+					<div style="text-align:left" class="Text">
 						<p>
-							<b>Want to do math to show icons on your screen? Want to use JavaScript and/or hudder's own custom language?! Well now you can! using this highly customizable hud creation mod you can create <i>ANY</i> HUD you want!!</b>
+							Not weady yet >_<
 						</p>
-						<p>
-							Hudder allows you to create a custom hud to appear on your screen in game using it's very simple language (Or JavaScript if you know how to use it)!
-						</p>
-						<p>
-							Draw the selected slot whereever you wish with the "hand" method!
-						</p>
-						<img src="Images/axe.webp" style="width:66%;">
-						<p>
-							Flex that shiny new 4090 of yours with the "fps" variable!
-						</p>
-						<p>
-							Make all the kids in the elementary school playground jealous of your 128GB of RAM with the "maxram" variable!
-						</p>
-						<p>
-							Show all the other programmers how good you are by drawing a circle using vertices with the "colorvertices_con" method!
-						</p>
-						<img src="Images/circle.webp" style="width:66%;">
-							
-						<div style="text-align:left" class="Text">
-							<p>
-							<a href="https://modrinth.com/mod/hudder">Modrinth</a>
-							&nbsp;<a href="hudder/">Wiki</a>&nbsp;
-							<a href="https://github.com/NGSpace/Hudder">Source Code</a>
-							</p>
-						</div>
-						</center>
 					</div>
 				</div>
 			</div>
 			<div id="Projects" class="tabcontent">
 				<div id="ProjectsContentPane">
-					</br>
+					<br>
+					<div><a href="hudder.html">
+						<image src="Images/Hudder.webp">
+						<figcaption>Hudder (Java)</figcaption>
+					</a></div>
 					<div><a href="HG.html">
 						<image src="Images/HG_Old_SS.webp">
 							<figcaption>Unnamed Game (HTML)</figcaption>
@@ -105,32 +75,46 @@
 					
 					<div><a href="nnuedit.html">
 						<image src="Images/NNUEdit.png">
-						<figcaption>NNUEdit</figcaption>
-					</a></div>
-					
-					<div><a href="index.html">
-						<image src="Images/Hudder.webp">
-						<figcaption>Hudder</figcaption>
+						<figcaption>NNUEdit (Java)</figcaption>
 					</a></div>
 				</div>
 			</div>
 			<div id="AboutMe" class="tabcontent" style="font-size: 0;">
-				<a style="text-decoration:none;"
-					href="https://github.com/NGSpace">
-				<span id="aboutmespan"style="font-size:50px;">
-				I make stuff
+				<span id="aboutmespan">
+<style>
+span {
+	text-align: center;
+}
+
+ul {
+	display: inline-block;
+	text-align: left;
+}
+ul a {
+	color: lightcoral;
+}
+ul a:visited {
+	color: lightcoral;
+}
+</style>
+					I write shitty code which I then release (&#128555;) upon the internet with no warning, causing immense
+					damage to the world and society in the process.<br><br>
+					Projects I am working on as of August 10th 2025, 7:33:29 (Israeli time):<br>
+					<ul>
+						<li><a href="/">This website</a></li>
+						<li><a href="/ngsweb">ngsweb</a></li>
+						<li><a href="/hudder">Hudder</a></li>
+					</ul>
+					<br>
+					I am of age "adult" (which means I'm actively paying for you to be able to read this)
 				</span>
-				</a>
 				<br>
-				<span id="aboutmespan"style="font-size:10px;">
-				"ngspace" on discord
-				</span>
 				<div style="font-size:20px;"></br></div>
 			</div>
 			<div id="borderbottom" style="font:initial;">
 				<a href="https://github.com/NGSpace">Github</a>
-				<a href="https://www.roblox.com/users/153081423/profile">Roblox</a>
-				<a href="https://modrinth.com/user/ngspace">Modrinth</a>
+				<a href="https://liberapay.com/NGSpace/">Liberapay</a>
+				<a href="/discord">Discord</a>
 			</div>
 		</div>
 	</center>

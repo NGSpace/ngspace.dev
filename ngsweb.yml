@@ -1,6 +1,6 @@
 ngsweb:
-    default_title: "NGS's wonderland!"
-    mobile_defaults_to_desktop: false
+    default_title: "NGS's land!"
+    mobile_defaults_to_desktop: true
     mobile_webstructure:
         "[/404]":
             servertype: "raw_file"
@@ -12,6 +12,11 @@ ngsweb:
             servertype: "raw_file"
             custom:
                 file: "src/desktop/404.html"
+                contenttype: "text/html"
+        "[/discord]":
+            servertype: "raw_file"
+            custom:
+                file: "src/discord.html"
                 contenttype: "text/html"
         "[/*]":
             servertype: "html_folder"

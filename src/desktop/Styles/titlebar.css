@@ -17,6 +17,15 @@
 	padding-top: 1.2vh;
 	padding-left: 1.2vh;
 	height: 80%;
+	animation: rotation 20s infinite linear;
+	animation-play-state: paused;
+}
+#topbar img:hover {
+	animation-play-state: running;
+}
+@keyframes rotation {
+	from {transform: rotate(0deg);}
+	to {transform: rotate(359deg);}
 }
 #topbar #TitleNGS {
 	color: red;

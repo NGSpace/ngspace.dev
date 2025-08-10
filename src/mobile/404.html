@@ -10,32 +10,36 @@
 	<link rel="icon" href="/Images/ngs.webp">
 	<style>
 		#icon {
-			position: absolute;
-			top: 50%;
-			left: 5%;
-			width: 35%;
+			position: fixed;
+			top: 45%;
+			left: 0%;
+			right: 0%;
+			width: 100%;
 			animation: rotation 50s infinite linear;
+			max-width: none;
 		}
 		#message {
 			position: absolute;
 			display: block;
-			top: 14vh;
-			left: 42%;
+			top: 3%;
+			left: 5%;
 			width: 100%;
 		}
 		#whoops {
-			font-size: 2.6vw;
-			border: .2vw dashed #f69c55;
+			font-size: 5vw;
+			border: .6vw dashed #f69c55;
 		}
 		#error {
-			position: absolute;
-			font-size: 1vw;
-			top: 15vh;
+			position: relative;
+			font-size: 4vw;
+			top: 2vh;
 		}
 		#links {
 			position: absolute;
-			font-size: 1vw;
-			top: 20vh;
+			font-size: 4vw;
+			left: 0%;
+			right: 0%;
+			top: 19vh;
 		}
 		#links a {
 			text-decoration: none;
@@ -58,6 +62,7 @@
 	</style>
 </head>
 <body>
+	<img id="icon" src="/Images/ngs.webp">
 	<div id="message">
 		<span id="whoops">Whoops! That page doesn't exist! <br></span>
 		<span id="error">
@@ -69,7 +74,6 @@
 			<a href="/hudder">Return to Hudder wiki!</a>
 		</span>
 	</div>
-	<img id="icon" src="/Images/ngs.webp">
 	<script>
 		document.getElementById("page").innerText = window.location.pathname;
 	</script>
