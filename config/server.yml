@@ -1,0 +1,63 @@
+ngsweb:
+    default_title: "NGS's land!"
+    mobile_defaults_to_desktop: true
+    mobile_webstructure:
+        "[/404]":
+            servertype: "raw_file"
+            custom:
+                file: "src/mobile/404.html"
+                contenttype: "text/html"
+    desktop_webstructure:
+        "[/404]":
+            servertype: "raw_file"
+            custom:
+                file: "src/desktop/404.html"
+                contenttype: "text/html"
+        "[/discord]":
+            servertype: "raw_file"
+            custom:
+                file: "src/discord.html"
+                contenttype: "text/html"
+        "[/*]":
+            servertype: "html_folder"
+            custom:
+                headInjectFile: "src/GTagInjection.txt"
+                sourcefolder: "src/desktop/html"
+                favicon: "/Images/ngs.webp"
+        "[/Styles/*]":
+            servertype: "css_folder"
+            custom:
+                sourcefolder: "src/desktop/Styles"
+        "[/Images/*]":
+            servertype: "image_folder"
+            custom:
+                sourcefolder: "src/desktop/Images"
+        "[/Scripts/*]":
+            servertype: "js_folder"
+            custom:
+                sourcefolder: "src/desktop/Scripts"
+        "[/hudder/*]":
+            servertype: "wiki_folder"
+            custom:
+                headInjectFile: "src/GTagInjection.txt"
+                sourcefolder: "src/desktop/hudder"
+                favicon: "/hudder/favicon.ico"
+                base_file: "src/desktop/hudder/base.html"
+        "[/hudder/Images/*]":
+            servertype: "image_folder"
+            custom:
+                sourcefolder: "src/desktop/hudder/Images"
+        "[/hudder/base.js]":
+            servertype: "raw_file"
+            custom:
+                file: "src/desktop/hudder/base.js"
+                contenttype: "text/javascript"
+        "[/hudder/favicon.ico]":
+            servertype: "raw_file"
+            custom:
+                file: "src/desktop/hudder/favicon.ico"
+                contenttype: "image/vnd.microsoft.icon"
+server:
+    port: 9090
+    http2:
+        enabled: true
