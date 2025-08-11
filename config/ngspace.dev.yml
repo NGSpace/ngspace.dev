@@ -7,6 +7,10 @@ ngsweb:
             custom:
                 file: "src/mobile/404.html"
                 contenttype: "text/html"
+        "[/Styles/*]":
+            servertype: "css_folder"
+            custom:
+                source_folders: "src/mobile/Styles"
     desktop_webstructure:
         "[/404]":
             servertype: "raw_file"
@@ -16,46 +20,49 @@ ngsweb:
         "[/discord]":
             servertype: "raw_file"
             custom:
-                file: "src/discord.html"
+                file: "src/common/discord.html"
                 contenttype: "text/html"
         "[/*]":
             servertype: "html_folder"
             custom:
                 headInjectFile: "src/GTagInjection.txt"
-                sourcefolder: "src/desktop/html"
+                source_folders:
+                    - "src/common/html/ngss_land"
+                    - "src/common/html/ngss_land/games"
+                    - "src/common/html/ngss_land/projects"
                 favicon: "/Images/ngs.webp"
         "[/Styles/*]":
             servertype: "css_folder"
             custom:
-                sourcefolder: "src/desktop/Styles"
+                source_folders: "src/desktop/styles"
         "[/Images/*]":
             servertype: "image_folder"
             custom:
-                sourcefolder: "src/desktop/Images"
+                source_folders: "src/common/images"
         "[/Scripts/*]":
             servertype: "js_folder"
             custom:
-                sourcefolder: "src/desktop/Scripts"
+                source_folders: "src/common/scripts"
         "[/hudder/*]":
             servertype: "wiki_folder"
             custom:
                 headInjectFile: "src/GTagInjection.txt"
-                sourcefolder: "src/desktop/hudder"
+                source_folders: "src/common/html/hudder_wiki"
                 favicon: "/hudder/favicon.ico"
-                base_file: "src/desktop/hudder/base.html"
+                base_file: "src/common/html/hudder_wiki/base.html"
         "[/hudder/Images/*]":
             servertype: "image_folder"
             custom:
-                sourcefolder: "src/desktop/hudder/Images"
+                source_folders: "src/images/hudder"
         "[/hudder/base.js]":
             servertype: "raw_file"
             custom:
-                file: "src/desktop/hudder/base.js"
+                file: "src/common/html/hudder_wiki/base.js"
                 contenttype: "text/javascript"
         "[/hudder/favicon.ico]":
             servertype: "raw_file"
             custom:
-                file: "src/desktop/hudder/favicon.ico"
-                contenttype: "image/vnd.microsoft.icon"
+                file: "src/images/Hudder.webp"
+                contenttype: "image/webp"
 server:
     port: 9090

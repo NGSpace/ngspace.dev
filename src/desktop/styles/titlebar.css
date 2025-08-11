@@ -14,8 +14,8 @@
 #topbar img {
 	position: absolute;
 	left: 0px;
-	padding-top: 1.2vh;
-	padding-left: 1.2vh;
+	padding-top: 1vh;
+	padding-left: 1vh;
 	height: 80%;
 	animation: rotation 20s infinite linear;
 	animation-play-state: paused;

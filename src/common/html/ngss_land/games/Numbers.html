@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Numbers!</title>
+	<style>
+	body {
+		background-color: #1b0136
+}
+
+#ContentPane {
+  	--SizeWidth: 600px;
+  	--SizeHeight: 500px;
+		margin: 0;
+		position: absolute;
+		top: calc(50% - var(--SizeHeight) / 2);
+		left: calc(50% - var(--SizeWidth) / 2);
+		height: var(--SizeHeight);
+		width: var(--SizeWidth);
+		margin-top: calc(var(--SizeHeight) / 2 * - 1);
+		margin-left: calc(var(--SizeWidth) / 2 * - 1);
+		//background-color: white;
+}
+#ContentPane * {
+		position: relative;
+		display: inline-block;
+		top: 30px;
+}
+#ContentPane input[type=text] {
+		width: 250px;
+		height: 50px;
+		text-align: center;
+		font: bold 40px consolas,monospace, Fira Mono, serif;
+		color: black;
+		border: solid 4px gray;
+}
+#ContentPane input[type=button] {
+		width: 150px;
+		height: 60px;
+		color: black;
+		border: solid 4px gray;
+		margin-left:10px;
+		vertical-align:top;
+		font: bold 25px consolas,monospace, Fira Mono, serif;
+		cursor: pointer;
+}
+#ContentPane input[type=button]:hover {
+		background-color:darkgray;
+}
+#ContentPane p {
+		text-align: center;
+		font: bold 20px consolas,monospace, Fira Mono, serif;
+		color: white;
+}
+</style>
+</head>
+<body>
+	<div id="ContentPane" onload="Click()">
+		<center>
+			<p>Guess a number between 0 and 100 and I'll</br>
+			tell you if it is bigger or smaller than the number I guessed.</p><p id="GuessesBox">
+			You got 5 guesses</p></br>
+			<input id="TextBox" type="text">
+			<input id="Button" type="button" value="Guess" onclick="Click()">
+			</br>
+			<p id="ResultBox"></p>
+			</br>
+			<a href="index.html"><input id="Button" type="button" value="Back"></a>
+		</center>
+	</div>
+</body>
+<script src="Scripts/Numbers.js"></script>
+</html>
