@@ -59,5 +59,3 @@ ngsweb:
                 contenttype: "image/vnd.microsoft.icon"
 server:
     port: 9090
-    http2:
-        enabled: true
