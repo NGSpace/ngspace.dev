@@ -10,7 +10,7 @@ ngsweb:
         "[/Styles/*]":
             servertype: "css_folder"
             custom:
-                source_folders: "src/mobile/Styles"
+                source_folders: "src/mobile/styles"
     desktop_webstructure:
         "[/404]":
             servertype: "raw_file"
