@@ -53,7 +53,7 @@ ngsweb:
         "[/hudder/Images/*]":
             servertype: "image_folder"
             custom:
-                source_folders: "src/images/hudder"
+                source_folders: "src/common/images/hudder"
         "[/hudder/base.js]":
             servertype: "raw_file"
             custom:
@@ -62,7 +62,7 @@ ngsweb:
         "[/hudder/favicon.ico]":
             servertype: "raw_file"
             custom:
-                file: "src/images/Hudder.webp"
+                file: "src/common/images/Hudder.webp"
                 contenttype: "image/webp"
 server:
     port: 9090
