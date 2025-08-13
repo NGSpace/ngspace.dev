@@ -14,11 +14,22 @@
 	color: darkgray;
 	opacity: 1; /* Firefox */
 }
+#versionFilter {
+	width: 20%;
+	font-size: 1em;
+	padding: 12px 20px 12px 12px;
+	border: 1px solid #ddd;
+	margin-bottom: 12px;
+	color: white;
+	background-color: rgb(0, 0, 0);
+}
+#versionFilter::placeholder {
+	color: darkgray;
+	opacity: 1; /* Firefox */
+}
 </style>
-<note>Variables are NOT case sensitive</note>
-<note id="hudder_version">PLACEHOLDER, if you see this something went wrong or is loading very slowly.</note>
-<warning>If you are playing on an older version, some of those variables may not exist.</warning>
-
+<note>Variables are case insensitive</note>
+<br>
 <script>
 
 function httpGet(theUrl) {
@@ -62,64 +73,182 @@ var variables_json = parseJSONC(httpGet("https://raw.githubusercontent.com/NGSpa
 
 document.getElementById("hudder_version").innerText = "This list is updated to Hudder version " + variables_json.hudder_version;
 
+// --- SEMVER UTILS ---
+function parseSemver(v) {
+  // Accept "v1.2.3", "1.2", "1", "1.2.3-alpha.1"
+  if (typeof v !== "string") return null;
+  const raw = v.trim();
+  if (!raw || raw.toUpperCase() === "UNKNOWN") return null;
+  const noPrefix = raw.startsWith("v") || raw.startsWith("V") ? raw.slice(1) : raw;
+  const m = noPrefix.match(/^(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:-([0-9A-Za-z.-]+))?(?:\+[0-9A-Za-z.-]+)?$/);
+  if (!m) return null;
+  return {
+    major: Number(m[1]),
+    minor: Number(m[2] ?? 0),
+    patch: Number(m[3] ?? 0),
+    prerelease: (m[4] ?? "") // prerelease exists => lower than release
+  };
+}
+function compareSemver(a, b) {
+  // returns -1, 0, 1; invalids sort after valids
+  const pa = parseSemver(a), pb = parseSemver(b);
+  if (!pa && !pb) return 0;
+  if (!pa) return 1;
+  if (!pb) return -1;
+  if (pa.major !== pb.major) return pa.major - pb.major;
+  if (pa.minor !== pb.minor) return pa.minor - pb.minor;
+  if (pa.patch !== pb.patch) return pa.patch - pb.patch;
+  // prerelease: empty > non-empty (release > prerelease)
+  if (!!pa.prerelease !== !!pb.prerelease) return pa.prerelease ? -1 : 1;
+  // if both have prerelease, do a simple lexical compare (good enough)
+  if (pa.prerelease || pb.prerelease) return pa.prerelease.localeCompare(pb.prerelease, undefined, { numeric: true, sensitivity: "base" });
+  return 0;
+}
+function isVersionLE(rowV, selectedV) {
+  const cmp = compareSemver(rowV, selectedV);
+  return cmp <= 0;
+}
+// --- END SEMVER UTILS ---
+
 function updateSearch() {
-	// Grab and normalize the user input
-	const input = document.getElementById("searchbar");
-	let filter = input.value.trim().toUpperCase();
-	
-	// Auto‐correct: if query mentions horse, pig, or llama, switch to "MOUNT"
-	const keywords = ["HORSE", "PIG", "LLAMA"];
-	if (keywords.some(k => filter.includes(k))) {
-		filter = "MOUNT";
-		console.log(`Auto-corrected search term to: ${filter}`);
-	}
+  // Grab and normalize the user input
+  const input = document.getElementById("searchbar");
+  let filter = input.value.trim().toUpperCase();
 
-	const table = document.getElementById("var_table");
-	const tr = table.getElementsByTagName("tr");
-	let anyVisible = false;
+  // NEW: current version filter + checkbox
+  const versionFilter = document.getElementById("versionFilter")?.value || "";
+  const includePrevious = document.getElementById("includePrevious")?.checked || false;
 
-	// Loop through all rows
-	for (let i = 1; i < tr.length; i++) {
-		const tds = tr[i].getElementsByTagName("td");
-		let rowMatches = false;
+  // Auto‐correct: if query mentions horse, pig, or llama, switch to "MOUNT"
+  const keywords = ["HORSE", "PIG", "LLAMA"];
+  if (keywords.some(k => filter.includes(k))) {
+    filter = "MOUNT";
+    console.log(`Auto-corrected search term to: ${filter}`);
+  }
 
-		// Check each cell
-		for (let j = 0; j < tds.length; j++) {
-			const txtValue = (tds[j].textContent || tds[j].innerText).trim().toUpperCase();
-			
-			if (j === 2) {
-				// 3rd column: exact match
-				if (txtValue === filter && filter !== "") {
-					rowMatches = true;
-					break;
-				}
-			} else {
-				// other columns: substring match
-				if (txtValue.indexOf(filter) > -1) {
-					rowMatches = true;
-					break;
-				}
-			}
-		}
-		
-		// Show/hide row
-		tr[i].style.display = rowMatches ? "" : "none";
-		if (rowMatches) anyVisible = true;
-	}
+  const table = document.getElementById("var_table");
+  const tr = table.getElementsByTagName("tr");
+  let anyVisible = false;
 
+  // Loop through all rows
+  for (let i = 1; i < tr.length; i++) {
+    const tds = tr[i].getElementsByTagName("td");
+    let rowMatches = (filter === ""); // if no text filter, start as true
 
-	if (!anyVisible) {
-		document.getElementById("res").innerText
-			= "No variable found matching the search \""+input.value+'"'
-		document.getElementById("searchnotfound").style.display = "";
-	} else
-		document.getElementById("searchnotfound").style.display = "none";
+    // Check each cell (text filter)
+    if (filter !== "") {
+      for (let j = 0; j < tds.length; j++) {
+        const txtValue = (tds[j].textContent || tds[j].innerText).trim().toUpperCase();
+
+        if (j === 2) {
+          // 3rd column: exact match
+          if (txtValue === filter) {
+            rowMatches = true;
+            break;
+          }
+        } else {
+          // other columns: substring match
+          if (txtValue.indexOf(filter) > -1) {
+            rowMatches = true;
+            break;
+          }
+        }
+      }
+    }
+
+    // Version filter
+    if (versionFilter) {
+      const versionText = (tds[4].textContent || tds[4].innerText).trim();
+      const isRowUnknown = versionText.toUpperCase() === "UNKNOWN";
+      const isFilterUnknown = versionFilter.toUpperCase() === "UNKNOWN";
+    
+      let versionMatches;
+      if (isFilterUnknown) {
+        // Show only rows whose version is Unknown
+        versionMatches = isRowUnknown;
+      } else if (isRowUnknown) {
+        // Exclude Unknown when a specific numeric version is chosen
+        versionMatches = false;
+      } else {
+        // Numeric semver compare
+        versionMatches = includePrevious
+          ? isVersionLE(versionText, versionFilter)
+          : (compareSemver(versionText, versionFilter) === 0);
+      }
+    
+      rowMatches = rowMatches && versionMatches;
+    }
+
+    // Show/hide row
+    tr[i].style.display = rowMatches ? "" : "none";
+    if (rowMatches) anyVisible = true;
+  }
+
+  // Not-found messaging (mention both filters if used)
+  if (!anyVisible) {
+    const parts = [];
+    if (input.value.trim() !== "") parts.push(`search "${input.value}"`);
+    if (versionFilter) {
+      const isFilterUnknown = versionFilter.toUpperCase() === "UNKNOWN";
+      parts.push(
+        isFilterUnknown
+          ? `version "Unknown"`
+          : (includePrevious ? `version ≤ "${versionFilter}"` : `version "${versionFilter}"`)
+      );
+    }
+    const msg = parts.length ? parts.join(" + ") : "your filters";
+    document.getElementById("res").innerText = "No variable found matching " + msg;
+    document.getElementById("searchnotfound").style.display = "";
+  } else {
+    document.getElementById("searchnotfound").style.display = "none";
+  }
 }
 
+// Populate the version dropdown with unique versions (semver-sorted), keeping "All versions" first
+function populateVersionFilter(versions) {
+  const select = document.getElementById("versionFilter");
+  if (!select) return;
+
+  // Keep the first "All versions"
+  select.innerHTML = "";
+  const allOpt = document.createElement("option");
+  allOpt.value = "";
+  allOpt.textContent = "All versions";
+  select.appendChild(allOpt);
+
+  // Separate known semvers and Unknowns
+  const known = [];
+  let hasUnknown = false;
+  for (const v of versions) {
+    if (!v || v.toUpperCase() === "UNKNOWN") {
+      hasUnknown = true;
+    } else {
+      known.push(v);
+    }
+  }
+
+  // Sort using semver (ascending)
+  known.sort((a, b) => compareSemver(a, b));
+
+  // Build options
+  for (const v of known) {
+    const opt = document.createElement("option");
+    opt.value = v;
+    opt.textContent = v;
+    select.appendChild(opt);
+  }
+  if (hasUnknown) {
+    const opt = document.createElement("option");
+    opt.value = "Unknown";
+    opt.textContent = "Unknown";
+    select.appendChild(opt);
+  }
+}
 
 
 function initializeTable() {
 	var table = (document.getElementById("var_table"));
+	var versionSet = new Set();
 	for (const type in variables_json) {
 		if (type=="hudder_version") continue;
 		var typelist = variables_json[type];
@@ -143,10 +272,18 @@ function initializeTable() {
 				type_cell.innerText = type;
 				var cate_cell = row.insertCell(3);
 				cate_cell.innerText = category;
+				var version_cell = row.insertCell(4);
+				var versionVal = value.version == undefined ? "Unknown" : value.version;
+				version_cell.innerText = versionVal;
+
+				versionSet.add(versionVal); // NEW: track unique versions
 			}
 		}
 	}
 	console.log("Done loading variable table");
+	
+	// NEW: build the dropdown after table data is known
+	populateVersionFilter(Array.from(versionSet));
 	
 	var input = document.getElementById('searchbar');
 	input.focus();
@@ -156,6 +293,16 @@ function initializeTable() {
 </script>
 
 <input type="text" id="searchbar" onkeyup="updateSearch()" placeholder="Search for a variable...">
+	
+<label for="versionFilter">Version:</label>
+<select id="versionFilter" onchange="updateSearch()">
+		<option value="">All versions</option>
+</select>
+
+<label style="margin-left:.5rem;">
+  <input type="checkbox" id="includePrevious" onchange="updateSearch()">
+  Include previous versions
+</label>
 
 <table id="var_table">
 	<colgroup>
@@ -163,6 +310,7 @@ function initializeTable() {
 		<col span="1" style="width: 50%;">
 		<col span="1" style="width: 5%;">
 		<col span="1" style="width: 20%;">
+		<col span="1" style="width: 5%;">
 	</colgroup>
 
 	<tr>
@@ -170,9 +318,10 @@ function initializeTable() {
 		<th width="30%">Description</th>
 		<th>Type</th>
 		<th>Category</th>
+		<th>Version</th>
 	</tr>
 	
-	<!-- Hidden third option -->
+	<!-- Secret third option -->
 	<tr style="display:none;color: red;text-align: center;" id="searchnotfound">
 		<th id="res" colspan="4">No variable found matching that search query</th>
 	</tr>
