@@ -22,6 +22,11 @@ ngsweb:
             custom:
                 file: "src/common/discord.html"
                 contenttype: "text/html"
+        "[/wiki/*]":
+            servertype: "raw_file"
+            custom:
+                file: "src/desktop/wiki_redirect.html"
+                contenttype: "text/html"
         "[/*]":
             servertype: "html_folder"
             custom:
