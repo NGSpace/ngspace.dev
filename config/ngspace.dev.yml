@@ -22,6 +22,11 @@ ngsweb:
             custom:
                 file: "src/common/discord.html"
                 contenttype: "text/html"
+        "[/favicon.ico]":
+            servertype: "raw_file"
+            custom:
+                file: "src/common/images/ngs.webp"
+                contenttype: "text/webp"
         "[/wiki/*]":
             servertype: "raw_file"
             custom:
