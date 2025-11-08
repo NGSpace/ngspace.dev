@@ -1,4 +1,4 @@
-# ngspace.github.io
+# ngspace.dev
 
 A site to show off some of my projects as well as host the hudder wiki.
 
