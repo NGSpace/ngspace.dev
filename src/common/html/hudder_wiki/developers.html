@@ -1,44 +1,21 @@
 
-	<title>Hudder wiki - Developers</title>
-	<style>
-		table {
-			background-color: rgb(40, 40, 40);
-		}
-		tr:nth-child(2n-1) {
-			background-color: rgb(20, 20, 20);
-		}
-		.header {
-			font-size: 1.5em;
-			text-align: center;
-			background-color: rgb(180,180,180) !important;
-			color:black;
-		}
-		td {
-			padding-top: 10px;
-			padding-bottom: 10px;
-		}
-		td inline-code{
-			padding: 0px;
-			margin: 0px;
-			line-height: 1px;
-		}
-	</style>
-	<h1>Extending Hudder!</h1>
+	<title>Hudder wiki - Extending Hudder</title>
+	<h1>Extending Hudder</h1>
 	<hr>
 	<warning>You will need to know Basic Java for this</warning>
 	<note>This page is only guaranteed to work on the latest versions!</note>
-	<note>If you ever fact ambiguity feel free to ask on Hudder's discord.</note>
+	<note>If you ever face ambiguity feel free to ask me for help on&nbsp;<a href="discord.html">Hudder's discord</a>.</note>
 	So, you're a big smarty-pants and want to improve hudder without directly modifying it? No worries! I am here to help!
-	<h2>Preparations</h2>
+	<h1 id="preparations">Preparations</h1>
 	<hr><h4>Here's a list of what you will need to have prepared:</h4>
-	<ul id="preplist">
+	<ul>
 		<li>JDK 21 or above (<a href="https://www.openlogic.com/openjdk-downloads?field_java_parent_version_target_id=828&field_operating_system_target_id=All&field_architecture_target_id=391&field_java_package_target_id=396">Download here</a>)</li>
 		<li>A code editor/IDE (ex. <a href="https://eclipseide.org/">Eclipse</a>, <a href="https://www.jetbrains.com/idea/">Intellij</a>, <a href="https://zed.dev/">Zed</a>, <a href="https://code.visualstudio.com/">VSSpyware</a> Windows notepad, vim, emacs, NNUEdit [<i>It's dead, don't ask me to update it</i>], Notepad++)</li>
 		<li>A fabric mod (<a href="https://fabricmc.net/develop/">Follow the tutorial if you don't know how to make one</a>)</li>
 		<li>A warm blanket, hot chocolate and a loving hug (from me ❤️)</li>
 	</ul>
 	<h3>Adding Hudder as a Gradle dependency</h3>
-	<note>You will need the Fabric API dependency for hudder to function and ModMenu and Cloth-Config to edit hudder's config</note>
+	<note>You will need the Fabric API for hudder to function</note>
 	First you will need to add modrinth's maven repository in the <inline-code>build.gradle</inline-code> file:
 	<br><br><code>repositories {
 	...
@@ -55,7 +32,7 @@
 	}
 }</code><br>After that you'll need to add Hudder's dependency:
 <code>dependencies {
-	modImplementation "maven.modrinth:hudder:[Hudder Version]-[Minecraft version]"
+	modImplementation "maven.modrinth:hudder:[Hudder modrinth release version]"
 }</code>
 <br>
 ...And done! You are now ready to start expanding hudder!
@@ -88,22 +65,31 @@
 
 
 
-<h1>Creating your own variables</h1>
+<h1 id="variables">Creating your own variables</h1>
 <hr>
 <note>In the Hudder compiler, all system variables must return always return a value.</note>
-Want to add your own custom values for existing compilers (Ex. Hudder or JavaScript)? For that you can use the ObjectDataAPI.
+<warning>As of 9.0.0, ObjectDataAPI has been deprecated and marked for removal in-favor of DataVariableRegistry</warning>
+Want to add your own variables? For that you can use the DataVariableRegistry.
 <br>
 Example:
-<code>ObjectDataAPI.addObjectGetter(key -&gt; {
-		if (key.equals("isLovable"))
-			return true;
-		return null;// Pass it onto the next ObjectGetter
-});
+<code>// Register a String variable
+DataVariableRegistry.registerVariable(k-&#62;"Walter white", VariableTypes.STRING, "name");
+// Register a Number variable
+DataVariableRegistry.registerVariable(k-&#62;308, VariableTypes.NUMBER, "address");
+// Register a Boolean variable
+DataVariableRegistry.registerVariable(k-&#62;true, VariableTypes.BOOLEAN, "dead", "2nd_variable_name");
+// Register a Variable of any type
+DataVariableRegistry.registerVariable(k-&#62;new Object() {
+	@Override
+	public String toString() {
+		return "This is a dummy object";
+	}
+}, VariableTypes.OBJECT, "dummy_object");
 </code>
+The function "registerVariable" is defined as such:
+<code>public static &#60T&#62 void registerVariable(DataVariable<?> variable, VariableTypes.Type&#60T&#62 type, String... names)</code>
 <br><br>
-They are guranteed to be applied to all first party compilers included in Hudder as well as any third party compilers that use <inline-code>ObjectDataAPI.getObject(String)</inline-code>.
-<br><br>
-In the Hudder and JavaScript compilers, they are 2nd to last to be processed behind user defined variables.
+They are guranteed to be applied to all first party compilers included in Hudder as well as any third party compilers that uses the <inline-code>DataVariableRegistry</inline-code> getters.
 <br><br><br><br>
 
 
@@ -133,7 +119,7 @@ In the Hudder and JavaScript compilers, they are 2nd to last to be processed beh
 
 
 
-<h1>Creating your own Functions and Consumers (Methods)</h1>
+<h1 id="functionsandmethods">Creating your own Functions and Consumers (Methods)</h1>
 <hr>
 <note>Hudder calls "consumers" "method" but they behave the same</note>
 Want to add your own custom functions and consumers for existing compilers (Ex. Hudder or JavaScript)? For that you can use the FunctionAndConsumerAPI.
@@ -276,7 +262,7 @@ To create your own consumer do the following:
 
 
 
-<h1>Creating your own UIElements</h1>
+<h1 id="uielements">Creating your own UIElements</h1>
 <hr>
 <note><p>You should see <a href="https://docs.fabricmc.net/develop/rendering/draw-context">the fabric wiki page for using the Drawing Context</a> for more information.</p></note>
 To create your own UIElement you simply need to create a class that extends AUIElement and override the renderElement method.
@@ -304,7 +290,6 @@ Here is a quick description of the arguments in the renderElement method:
 		<td>The delta tracker used to track the changes in the UIElement.</td>
 	</tr>
 </table>
-//TODO: Add more information about the UIElement class and its methods.
 <br><br><br><br>
 
 
@@ -327,7 +312,7 @@ Here is a quick description of the arguments in the renderElement method:
 
 
 
-<h1>Writing your own compiler using the V2 Runtime</h1>
+<h1 id="v2runtime">Writing your own compiler using the V2 Runtime</h1>
 <hr>
 <note>The compiler needs to be created in it's own class/file, no lambdas or nested classes.</note>
 First thing: we'll need a class:
@@ -350,6 +335,9 @@ The "info" variable contains all of hudder's settings in the forms of variables,
 <br>The "scope" variable should be the parent runtime of the runtime you are building, all scoped values set in the parent runtime should apply to the runtime you are currently building.
 <br><br>
 If you used this compiler it will just echo back whatever you put in the mainfile which will be useless so...
+
+<h3>Registering the compiler</h3>
+Just use <inline-code>Compilers.registerCompiler("custom_compiler", new CustomCompiler())</inline-code>
 
 <h3>Adding variable and function support</h3>
 Don't want to code your own variable and function system? No worries! The V2Runtime has you covered,
@@ -402,10 +390,10 @@ This will make it such that all text between 2 % are treated as variables: <inli
 
 
 
-<h1>Writing your own Compiler from scratch</h1>
+<h1 id="avartextcompiler">Writing your own Compiler from scratch</h1>
 <hr>
-<note>You better have a good reason to not use the V2 Runtime cause making your own compiler leaves to you all the work of managing performance, making a variable system, managing UIElement(s) by yourself, etc.</note>
-<note>Extending AVarTextCompiler instead of ATextCompiler will help you with the basics of a variable system which might be helpful if you let variables be handled by a third party library (ex. the JavaScript compiler uses the JavaScript variable system but still has access to basic variables with the get() function)</note>
+<note>I don't recommend making your own compiler and runtime instead of using the V2Runtime.</note>
+<note>Extending AVarTextCompiler instead of ATextCompiler will help you with the basics of a variable system (Ex adding a function to access Hudder variables).</note>
 
 <code>public class CustomCompiler extends AVarTextCompiler {
 	@Override

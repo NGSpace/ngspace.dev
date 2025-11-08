@@ -69,6 +69,11 @@ ngsweb:
             custom:
                 file: "src/common/html/hudder_wiki/base.js"
                 contenttype: "text/javascript"
+        "[/hudder/base.css]":
+            servertype: "raw_file"
+            custom:
+                file: "src/common/html/hudder_wiki/base.css"
+                contenttype: "text/css"
         "[/hudder/favicon.ico]":
             servertype: "raw_file"
             custom:

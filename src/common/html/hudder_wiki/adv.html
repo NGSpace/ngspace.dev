@@ -1,55 +1,6 @@
 <title>Hudder wiki - Advanced hud</title>
-<note>"Advanced" is a strong word, the contents of this page was written to be understood by everyone, but it may not be useful to everyone therfore I deemed it "advanced".</note>
 <h1>Advanced hud</h1>
 <hr>
-	
-<h2 id="adv_conds">If statements and loops</h2>
-<hr><br>
-<note>The indentation must be of a consistent type or unexpected issues may occur.</note>
-<note><inline-code>#for</inline-code> loops are only available in Hudder version 8.0.0 and above!</note>
-<br>
-You can use <inline-code>#if</inline-code> to do large if conditions (unlike inline-conditions you can only have 1 condition without an else statement)
-<br><br>
-<inline-code>#while</inline-code> is similar except it repeats itself until the condition is false.
-You can also use <inline-code>{break}</inline-code> to stop the execution of the while loop early without stopping the execution
-of the rest of the hud.
-<br><br>
-
-Here is an example of both (Please do not use this, it will likely crash your game):
-
-<code>#if fps&#60;60
-		{math=10+20}
-		{crashmypc=true}
-{xx=0}
-{yy=0}
-#while crashmypc
-		#if yy&#62;height
-			{crashmypc=false}
-		;hand, xx,yy,1;
-		{xx=xx+16}
-		#if xx>width
-			{yy=yy+16}
-			{xx=0}
-</code>
-<br>
-Magnificent, isn't it? Looks like I peaked early when I came up with this piece of art.
-<br><br>
-
-
-<inline-code>#for</inline-code> loops work in 2 different ways, it can either:<br>
-Loop from a specific number to another:
-<code>#for num in range(0,10):
-	;alert, num;</code>
-Which will send the user all the numbers between 0 (inclusive) and 10 (exclusive) in order.<br>
-<br>
-Or it could loop through an array:
-<code>#for i in ["I want", "to", 0x6B696C6C, "myself"]:
-	;alert, num;</code>
-Which will send the user all the values in the array in order (from left to right).
-<br><br>
-<inline-code>{break}</inline-code> in a <inline-code>#for</inline-code> loop works in a similar way to <inline-code>#while</inline-code>.
-<br><br>
-
 
 
 <h2 id="strings">Strings</h2>
@@ -174,21 +125,6 @@ if you add a <inline-code>;return, [value];</inline-code>, it will become a func
 
 <br><br>
 
-<h2 id="break">The Break variable</h2>
-<hr>
-The <inline-code>{break}</inline-code> variable is special because it's not actually a variable, once it is used, execution of the hud will stop.<br><br>
-If used in <inline-code>#while</inline-code> loop or a <inline-code>#def</inline-code> method, then instead of stopping the execution of the hud it will just stop the execution of the while loop or def method.
-<note>The above statement is only true for #while and #def, not #if.</note>
-Example:
-<code>#while _i&#60;10
-	{_i++}
-	#if _i==5
-		{break}
-{_i}</code>
-Will set {_i} to 5
-
-<br><br>
-
 <h2 id="operators">Inc, Dec and Boolean operators</h2>
 <hr>
 You can use <inline-code>{_i++}</inline-code> to increase _i's value by 1 and then return the it's old value, <inline-code>{_i--}</inline-code> does the same but decreases by 1.
@@ -204,8 +140,8 @@ You can use <inline-code>{boolean2||boolean1}</inline-code> to return true if ei
 <br><br>
 
 <h2 id="components">Item components</h2>
-<note>Works in JavaScript, the values are a property of the returned object.</note>
 <hr>
+<note>Works in JavaScript, the values are a property of the returned object.</note>
 The <inline-code>getItem([Number slot])</inline-code> function returns an object that contains the following properties:<br>
 <code>name - The name of the item
 item_name - The name of the item type (Even if name was modified with anvil/commands)

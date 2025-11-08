@@ -1,0 +1,295 @@
+<title>Hudder Wiki - Loops and If Statements</title>
+
+<h1>Loops and If Statements</h1>
+<hr><br/>
+<warning>The indentation must be of a consistent type or unexpected issues may occur.</warning>
+<br/>
+
+<h2 id="if">1. If Statements</h2>
+<hr>
+
+<note>
+While this article does imply the existence of an <inline-code>#else</inline-code> statement, it does <i><b>not</b></i> exist.
+</note>
+
+Hudder’s inline conditions are designed to be powerful and flexible. However, there are situations where you might want to write more complex logic, or simply prefer the improved readability of a block-based conditional.<br><br>
+For these cases, you can use the <inline-code>#if</inline-code> statement.<br><br>
+
+<b>Syntax:</b><br>
+To define an <inline-code>#if</inline-code> block, write the keyword followed by the condition, then start a new line and indent the block (similar to Python).<br><br>
+
+<code>#if [condition]
+    [operations to perform if the condition is true]
+</code>
+
+<br>
+
+<b>Example:</b><br>
+<code>{random = rng(1, 11)}
+
+#if random &#60; 5
+    ;alert, "Random is less than 5!"
+
+#if !(random &#60; 5)
+    ;alert, "Random is not less than 5!"
+</code>
+
+<br>
+
+<p>
+In this example, a random number between 1 and 10 is generated and stored in the variable <inline-code>random</inline-code>.<br>
+The first <inline-code>#if</inline-code> checks whether the number is less than 5 — if so, it triggers an alert.<br>
+The second <inline-code>#if</inline-code> uses the negation operator <inline-code>!</inline-code> to check the opposite condition, displaying a different alert if the number is 5 or greater.
+</p>
+
+<br><br>
+
+<h2 id="while">2. While Loops</h2>
+<hr>
+
+<warning>
+In order to prevent an infinite loop, Hudder will throw an error after 32,768 loop executions.
+</warning>
+
+While loops in Hudder allow you to repeatedly execute a block of code as long as a given condition remains true.<br>
+They are useful for performing repetitive tasks, waiting for conditions to change, or processing data until a certain state is reached.
+
+<br><br>
+
+<b>Syntax:</b><br>
+To define a while loop, write the keyword <inline-code>#while</inline-code> followed by the condition, then start a new line and indent the block (just like with <inline-code>#if</inline-code> statements).<br><br>
+
+<code>#while [condition]
+    [operations to perform while the condition is true]
+</code>
+
+<br>
+
+<p>
+The loop will continue executing the indented block until the condition evaluates to <inline-code>false</inline-code>.
+</p>
+
+<br>
+
+<b>Example:</b><br>
+<code>{random = rng(1, 11)}
+{loop_count = 0}
+
+#while random &#60; 5
+    {random = rng(1, 11)}
+    {loop_count++}
+
+;alert, "We looped " + loop_count + " times in order to get a random number greater than 5!";
+</code>
+
+<br>
+
+<p>
+In this example, a random number between 1 and 10 is generated and stored in the variable <inline-code>random</inline-code>.<br>
+The <inline-code>#while</inline-code> statement continues looping as long as <inline-code>random</inline-code> is less than 5.<br>
+Inside the loop, a new random number is generated each iteration, and <inline-code>loop_count</inline-code> is incremented to track how many times the loop ran.<br>
+Once <inline-code>random</inline-code> becomes 5 or greater, the loop ends, and an alert displays how many iterations were required.
+</p>
+
+<br><br>
+
+<h2 id="for">3. For Loops</h2>
+<hr>
+<note><inline-code>#for</inline-code> loops are only available in Hudder version 8.0.0 and above!</note>
+
+<note>Variables declared inside a <inline-code>#for</inline-code> loop are only accessible within the loop’s block.</note>
+
+For loops in Hudder are used to iterate over a sequence of values, such as elements in an array or a range of numbers.<br>
+They are ideal for performing repeated operations when you know in advance how many times you want to loop.
+
+<br><br>
+
+<b>Syntax:</b><br>
+Hudder supports several forms of the <inline-code>#for</inline-code> statement, depending on what you want to iterate over.<br><br>
+
+<br>
+
+<b>1. Looping through an array</b><br>
+Use this form to iterate over each element in an array.<br><br>
+
+<code>#for [variable] in [array]
+    [operations using the current element]
+</code>
+
+<br>
+<b>Example:</b><br>
+<code>{fruits = ["apple", "banana", "cherry"]}
+
+#for fruit in fruits
+    ;alert, "Found fruit: " + fruit;
+</code>
+
+<br>
+<p>
+In this example, the loop assigns each element of the <inline-code>fruits</inline-code> array to the variable <inline-code>fruit</inline-code> on each iteration.<br>
+The loop runs three times, displaying an alert for each fruit.
+</p>
+
+<br><br>
+
+<b>2. Looping with a range (single number)</b><br>
+You can generate a sequence of numbers from 0 up to (but not including) the given number using <inline-code>range()</inline-code>.<br><br>
+
+<code>#for i in range([end])
+    [operations using i]
+</code>
+
+<br>
+<b>Example:</b><br>
+<code>#for i in range(5)
+    ;alert, "Iteration: " + i;
+</code>
+
+<br>
+<p>
+This loop runs five times, with <inline-code>i</inline-code> taking the values 0 through 4.
+</p>
+
+<br><br>
+
+<b>3. Looping with a range (start and end)</b><br>
+You can also specify both a start and end value using <inline-code>range(start, end)</inline-code>.<br><br>
+
+<code>#for i in range([start], [end])
+    [operations using i]
+</code>
+
+<br>
+<b>Example:</b><br>
+<code>#for i in range(3, 7)
+    ;alert, "Value: " + i;
+</code>
+
+<br>
+<p>
+This loop begins at 3 and runs until (but does not include) 7.<br>
+In this case, <inline-code>i</inline-code> takes the values 3, 4, 5, and 6.
+</p>
+
+
+<br><br>
+
+<h2 id="break">4. The break Operation</h2>
+<hr>
+	
+<note>
+Although <inline-code>{break}</inline-code> follows the same syntax style as variables (for example, <inline-code>{userid}</inline-code>), it is <b>not</b> a variable and does <b>not</b> behave like one.
+</note>
+
+The <inline-code>{break}</inline-code> operation is used to immediately stop execution.  
+It behaves similarly to <inline-code>break</inline-code> statements found in other programming languages.
+
+<br><br>
+
+<b>Usage:</b><br>
+The <inline-code>{break}</inline-code> operation can be used in several contexts:
+<ul>
+  <li>Inside loops — to exit the loop immediately.</li>
+  <li>Inside functions or methods — to stop execution of the function or method.</li>
+  <li>At the script level — to stop execution of the entire script.</li>
+</ul>
+
+<br>
+
+<b>Example 1: Breaking out of a loop</b><br>
+<code>{numbers = [1, 2, 3, 4, 5]}
+
+#for n in numbers
+    #if n == 3
+        {break}
+    ;alert, "Number: " + n;
+</code>
+
+<br>
+<p>
+This example loops through the <inline-code>numbers</inline-code> array and displays each number with an alert.<br>
+When <inline-code>n</inline-code> equals 3, the <inline-code>{break}</inline-code> operation stops the loop immediately.<br>
+As a result, the alerts for 4 and 5 are never executed.
+</p>
+
+<br><br>
+	
+<b>Example 2: Breaking from a function</b><br>
+<code>#def testBreak
+    {break}
+    ;return, "Not null";
+
+;alert, "Function returned: " + testBreak();
+</code>
+
+<br>
+<p>
+In this example, the <inline-code>{break}</inline-code> inside the function <inline-code>testBreak</inline-code> stops the function’s execution early.<br>
+Because the function ends immediately, the <inline-code>;return, "Not null";</inline-code> line is never reached, and the function instead returns <inline-code>null</inline-code>.
+</p>
+
+<br><br>
+
+<b>Example 3: Breaking script execution</b><br>
+<code>;alert, "Script started!";
+{break}
+;alert, "This line will never execute.";
+</code>
+
+<br>
+<p>
+When <inline-code>{break}</inline-code> is used outside of any function or loop, it immediately ends the script’s execution.<br>
+In this case, only the first alert runs.
+</p>
+
+<br><br>
+<h2 id="example">5. Example</h2>
+<hr>
+
+To see how <inline-code>#if</inline-code>, <inline-code>#while</inline-code>, <inline-code>#for</inline-code>, and <inline-code>{break}</inline-code> can work together, let's look at a practical example.<br>
+In this script, we’ll generate a list of random numbers, check them, and stop early if certain conditions are met.
+
+<br><br>
+
+<b>Example:</b><br>
+<code>{numbers = []}
+{limit = 10}
+
+#while length(numbers) &#60; limit
+    {numbers[length(numbers)]=int(rng(1, 11))}
+
+;alert, "Generated numbers: " + numbers;
+
+#for n in numbers
+    #if n == 10
+        ;alert, "Found a 10! Ending early.";
+        {break}
+    #if n &#60; 5
+        ;alert, "Value " + n + " is less than 5.";
+    #if n &#62;= 5
+        ;alert, "Value " + n + " is 5 or greater.";
+
+;alert, "Loop complete!";
+</code>
+
+<br>
+
+<p>
+Here’s what this example does, step by step:
+</p>
+
+<ul>
+  <li><b>1.</b> It creates an empty array called <inline-code>numbers</inline-code> and sets a <inline-code>limit</inline-code> of 10.</li>
+  <li><b>2.</b> A <inline-code>#while</inline-code> loop fills the array with random numbers from 1 to 10 until it contains 10 elements.</li>
+  <li><b>3.</b> The <inline-code>#for</inline-code> loop then iterates over each number in <inline-code>numbers</inline-code>.</li>
+  <li><b>4.</b> Inside the loop, <inline-code>#if</inline-code> statements check each number:
+    <ul>
+      <li>If it’s exactly 10, an alert is shown and <inline-code>{break}</inline-code> stops the loop early.</li>
+      <li>If it’s less than 5, a message notes that it’s below 5.</li>
+      <li>Otherwise, a message notes that it’s 5 or greater.</li>
+    </ul>
+  </li>
+  <li><b>5.</b> After the loop finishes (or breaks early), a final alert confirms that the script is complete.</li>
+</ul>
+
+<br><br>

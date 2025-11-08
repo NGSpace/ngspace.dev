@@ -1,44 +1,33 @@
 <title>Hudder wiki - JavaScript</title>
-<style>
-	table {
-		background-color: rgb(40, 40, 40);
-	}
-	tr:nth-child(2n-1) {
-		background-color: rgb(20, 20, 20);
-	}
-	.header {
-		font-size: 1.5em;
-		text-align: center;
-		background-color: rgb(180,180,180) !important;
-		color:black;
-	}
-	td {
-		padding-top: 10px;
-		padding-bottom: 10px;
-	}
-	td inline-code{
-		padding: 0px;
-		margin: 0px;
-		line-height: 1px;
-	}
-</style>
 
 <h1>JavaScript</h1>
 <hr><br>
 	
-<note>You'll probably need a basic understanding of programming and JavaScript to understand the following.</note>
-
-<warning>Make sure to go into the advanced options tab, enabled javascript and change the compiler type to "js"!</warning>
-
-<warning>JavaScript gives you a lot of control! Use at your own risk, if you accidentally cause harm to your game, I will
-laugh at you.</warning>
+<note>This article assumes you already understand basic JavaScript syntax and concepts. </note>
 
 <br>
 
-<h2 id="sections"> Sections? Functions!</h2>
-<hr><br>
+<h2 id="setup">1. Setup</h2>
+<hr>
+	
+<p>
+Using JavaScript is a little bit more complicated than using the Hudder language and requires a bit of setting up.
+<br><br>
+<b>First,</b> you need to enable JavaScript by going into Hudder's settings and toggling "JavaScript enabled".<br>
+<b>Second,</b> you need to change the "Compiler type" to "js".<br>
+<b>Alternatively,</b> if you want to use both JavaScript and Hudder in your hud, you can use the "run" method and give "js" as the second parameter.
 
-<b>Each section has it's own function which must return a string! Example:</b>
+</p>
+
+<br>
+<h2 id="sections">2. Sections and Execution Order</h2>
+<hr>
+
+<p> To avoid recompiling on every frame, your script is compiled once. On each update, Hudder invokes functions by their section names and displays the returned values in the corresponding sections. </p> <br/>
+
+<b>Section functions</b><br/>
+Define exactly one function per section. Whatever the function returns is rendered in that section.
+
 <code language="js">function topleft() {
 	return "this will appear in the top left section!";
 }
@@ -50,27 +39,45 @@ function topright() {
 }
 function bottomright() {
 	return "this in the bottom right!";
-}
-</code>
-<b>The functions will be executed in the following order:</b>
-<code language="js">topleft()
-bottomleft()
-topright()
-bottomright()
-createElements()
-</code>
-<b>to change the size of a section just make a global variable with the section's name + "scale". Example:</b>
+}</code>
+
+<br/>
+
+<b>No section</b><br/>
+If you need logic that doesn’t correspond to a section, define <inline-code>createElements()</inline-code>.
+
+<code language="js">function createElements() {
+	alert("This function does not return a value.");
+}</code>
+
+<br/>
+
+<b>Execution order</b><br/>
+Hudder calls section functions in the following order each cycle:
+
+<code language="js">topleft();
+bottomleft();
+topright();
+bottomright();
+createElements();</code>
+
+<br/>
+
+<b>Resizing sections</b><br/>
+Scale the contents of a section by defining a global variable named <i>[section]scale</i>.
+The default value is <inline-code>1</inline-code>.
+
 <code language="js">var topleftscale = 2;
 var bottomleftscale = 2;
 var toprightscale = 2;
-var bottomrightscale = 2;
-</code>
-<br>
-<h2 id="functions">List of functions and their descriptions:</h2>
-<hr>
-<warning>All parameters are non-optional, if they are optional for legacy reasons, it won't stay this way!</warning>
+var bottomrightscale = 2;</code>
 
-<br>
+<br/><br/>
+
+<h2 id="functions">3.List of functions and their descriptions:</h2>
+<hr>
+<warning>All parameters are required. If not then they will be.</warning>
+
 Starting with Hudder 8.0.0, most methods seen in the <a href="methodlist.html">Method list</a> (Not functions!!!) are available on JavaScript and behave exactly the same.
 For simplicity and not having to do twice the work, those methods will not show up here.
 <table>
@@ -95,24 +102,24 @@ For simplicity and not having to do twice the work, those methods will not show 
 	</tr>
 	<tr>
 		<td><inline-code language="js">getNumber(String variable)</inline-code></td>
-		<td>Returns the Number variable with the given name.</td>
+		<td>Returns the Number system variable with the given name.</td>
 		<td>Number</td>
 	</tr>
 	<tr>
 		<td><inline-code language="js">getString(String variable)</inline-code></td>
-		<td>Returns the String variable with the given name.</td>
+		<td>Returns the String system variable with the given name.</td>
 		<td>String</td>
 	</tr>
 	<tr>
 		<td><inline-code language="js">getBoolean(String variable)</inline-code></td>
-		<td>Returns the Boolean variable with the given name.</td>
+		<td>Returns the Boolean system variable with the given name.</td>
 		<td>Boolean</td>
 	</tr>
 	<tr>
 		<td><inline-code language="js">getItem(Number slot)</inline-code></td>
-		<td>Returns the item in the given name.</td>
+		<td>Returns the item in the given slot.</td>
 		<td>ItemStack</td>
-		<td>see <a href="adv.html#components">Item components</a></td>
+		<td>see also: <a href="adv.html#components">Item components</a></td>
 	</tr>
 	<tr>
 		<td><inline-code language="js">set(String variable, Any Object)</inline-code></td>
@@ -140,13 +147,13 @@ For simplicity and not having to do twice the work, those methods will not show 
 	</tr>
 </table>
 
-<br>
-<h2>Here is a simple Example:</h2>
-<br>
+<br><br>
+<h2>4. Example</h2>
+<hr>
 <code language="js">function topleft() {
-	let fps = getVal("fps");
-	setVal("fpsbutbetter", fps+2);
-	return "thy fps+2 is " + getVal("fpsbutbetter");
+	let fps = get("fps");
+	set("fpsbutbetter", fps+2);
+	return "thy fps+2 is " + get("fpsbutbetter");
 }
 </code>
 <br><br><br>
