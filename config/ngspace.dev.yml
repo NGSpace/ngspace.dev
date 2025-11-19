@@ -1,6 +1,8 @@
 ngsweb:
     default_title: "NGS's land!"
     mobile_defaults_to_desktop: true
+    generate_sitemap: true
+    sitemap_url: "https://ngspace.dev"
     mobile_webstructure:
         "[/404]":
             servertype: "raw_file"
