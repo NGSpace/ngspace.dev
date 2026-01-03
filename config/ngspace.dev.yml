@@ -3,6 +3,7 @@ ngsweb:
     mobile_defaults_to_desktop: true
     generate_sitemap: true
     sitemap_url: "https://ngspace.dev"
+    sitemap_exclusions: []
     mobile_webstructure:
         "[/404]":
             servertype: "raw_file"
@@ -13,6 +14,11 @@ ngsweb:
             servertype: "css_folder"
             custom:
                 source_folders: "src/mobile/styles"
+        "[/hudder/base_mobile.css]":
+            servertype: "raw_file"
+            custom:
+                file: "src/mobile/styles/base_mobile.css"
+                contenttype: "text/css"
     desktop_webstructure:
         "[/robots.txt]":
             servertype: "raw_file"
@@ -61,12 +67,12 @@ ngsweb:
             custom:
                 source_folders: "src/common/scripts"
         "[/hudder/*]":
-            servertype: "wiki_folder"
+            servertype: "template_folder"
             custom:
                 headInjectFile: "src/GTagInjection.txt"
                 source_folders: "src/common/html/hudder_wiki"
                 favicon: "/hudder/favicon.ico"
-                base_file: "src/common/html/hudder_wiki/base.html"
+                template: "src/common/html/hudder_wiki/base.html"
         "[/hudder/Images/*]":
             servertype: "image_folder"
             custom:
@@ -86,5 +92,9 @@ ngsweb:
             custom:
                 file: "src/common/images/Hudder.webp"
                 contenttype: "image/webp"
+        "[/hudder/base_mobile.css]":
+            servertype: "null_page"
+            custom:
+                contenttype: "text/css"
 server:
     port: 9090

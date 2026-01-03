@@ -3,26 +3,7 @@
 A site to show off some of my projects as well as host the hudder wiki.
 
 ## Map of the site:
-* ngspace.dev
-  * index.html
-  * Numbers.html
-  * HG.html
-  * ngsweb.html
-  * nnuedit.html
-  * hudder.html
-  * hudder
-    * adv.html
-    * base.html
-    * developers.html
-    * functions.html
-    * howto.html
-    * index.html
-    * javascript.html
-    * loops.html
-    * methodlist.html
-    * rendering.html
-    * russian.html
-    * varlist.html
+https://ngspace.dev/sitemap.xml
 
 ## Hate the design?
 

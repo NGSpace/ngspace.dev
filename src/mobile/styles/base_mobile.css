@@ -1,0 +1,74 @@
+/* === Mobile overrides === */
+/* optionally wrap in @media if you prefer:
+@media (max-width: 768px) {
+*/
+
+html, body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+/* Stack things vertically */
+body {
+	display: flex;
+	flex-direction: column;
+}
+
+/* Topbar stays fixed and above everything */
+#topbar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 8vh;
+	z-index: 1000; /* above contents & sidebar */
+}
+
+/* Make sidebar and contents participate in normal flow instead of desktop layout */
+#sidebar,
+#contents {
+	position: static;           /* kills desktop absolute/fixed + left/top/bottom */
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+/* Flex order: topbar -> sidebar -> contents */
+#topbar  { order: 0; }
+#sidebar { order: 1; margin-top: 8vh; } /* pushes it below fixed topbar */
+#contents { order: 2; }
+
+/* Sidebar styling for mobile */
+#sidebar {
+	border-right: none;
+	border-bottom: 3px solid gray;
+	overflow-y: visible;
+	font-size: 4vw;
+}
+
+/* Tweak sidebar text sizes */
+#sidebar h1 {
+	font-size: 5vw;
+}
+#sidebar details {
+	font-size: 4vw;
+}
+#sidebar details ul {
+	font-size: 3vw;
+	margin-left: 20px;
+}
+
+/* Contents: full-width with nice padding */
+#contents {
+	padding: 1rem 4%;
+	min-height: auto;
+}
+
+/* That <link rel="icon"> inside <body> becomes a flex item – hide it on mobile */
+link[rel="icon"] {
+	display: none;
+}
+
+/* }  end @media if you add one */
