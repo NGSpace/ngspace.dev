@@ -8,7 +8,7 @@
 <code>;slot, [Number slot], [Number x], [Number y], &#60;Number scale&#62;, &#60;Boolean showcount&#62;; - draw the item in the provided slot on screen.
 ;item, [String itemid], [Number x], [Number y], &#60;Number scale&#62;; - draw the item with the provided id on screen.
 ;hand, [Number x], [Number y], &#60;Number scale&#62;, &#60;Boolean showcount&#62;; - draw the held item on screen.
-;helemet, [Number x], [Number y], &#60;Number scale&#62;, &#60;Boolean showcount&#62;; - draw the item in the helmet slot on screen.
+;helmet, [Number x], [Number y], &#60;Number scale&#62;, &#60;Boolean showcount&#62;; - draw the item in the helmet slot on screen.
 ;chestplate, [Number x], [Number y], &#60;Number scale&#62;, &#60;Boolean showcount&#62;; - draw the item in the chestplate slot on screen.
 ;leggings, [Number x], [Number y], &#60;Number scale&#62;, &#60;Boolean showcount&#62;; - draw the item in the leggings slot on screen.
 ;boots, [Number x], [Number y], &#60;Number scale&#62;, &#60;Boolean showcount&#62;; - draw the item in the boots slot on screen.
@@ -40,9 +40,13 @@
 ;throw, [String message]; - Throws an CompileException with the provided message - Please do not use this if you don't know what this means.
 </code>
 
-<h1>Hud management</h1>
+<h1>Other</h1>
 
-<code>;run, [String filename], &#60;Boolean addText&#62;, &#60;String compiler&#62;; - Compile the provided hud with the provided compiler, if "addText" is set to true then it will combine the text of the compiled hud with the current one , UI Elements get added whether addText is true or false.
+<code>;run, [String filename], &#60;Boolean addText&#62;, &#60;String compiler&#62;; - Compile the provided hud with the provided compiler, if "addText" is set to true then it will combine the
+- text of the compiled hud with the current one, UI Elements get added whether addText is true or false.
+;writeValue, [String key], [Number/String/Boolean/Character value]; - Writes a value to memory, able to be retrieved across restarts.
+- The unsafe operations option disables the value type limitations however one should expect type casting issues.
+;set([String key], [Any value]); - sets the value of the given variable to the given value (Alias: setVal)
 </code>
 <br><br>
 
