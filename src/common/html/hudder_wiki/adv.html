@@ -145,10 +145,13 @@ You can use <inline-code>{boolean2||boolean1}</inline-code> to return true if ei
 The <inline-code>getItem([Number slot])</inline-code> function returns an object that contains the following properties:<br>
 <code>name - The name of the item
 item_name - The name of the item type (Even if name was modified with anvil/commands)
-repair_cost - The repair cost of the item
 damage - How much the item has been damaged
 max_damage - How much the item can bee damaged
 max_stack_size - The max stack size of the item
+identifier - The ID of the item
+cooldown - The current cooldown for consumption
+max_cooldown - The max cooldown for consumption
+repair_cost - The repair cost of the item
 enchantment_glint_override - Imma be honest idk what this one does, check the minecraft wiki if it's important.
 trim - An object containing the following 3 properties:
   - material - The name of the material used on the armor piece's trim
