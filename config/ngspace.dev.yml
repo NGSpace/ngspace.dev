@@ -90,7 +90,7 @@ ngsweb:
         "[/hudder/favicon.ico]":
             servertype: "raw_file"
             custom:
-                file: "src/common/images/Hudder.webp"
+                file: "src/common/images/hudder/Hudder.webp"
                 contenttype: "image/webp"
         "[/hudder/base_mobile.css]":
             servertype: "null_page"
