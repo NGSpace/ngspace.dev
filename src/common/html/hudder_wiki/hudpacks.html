@@ -1,0 +1,225 @@
+<title>Hudder wiki - Hudpacks</title>
+
+<h1>Hudpacks</h1>
+<hr><br>
+
+<note>Hudpacks were added in Hudder version 10.0.0</note>
+<note><span>Hudpacks use JavaScript for the code itself. See <a href="javascript.html">JavaScript</a></span></note>
+
+Hudpacks allow you to organize Hudder huds into their own directories and control them through JavaScript.
+Instead of using a single hud file, a hudpack acts more like a small project containing scripts and metadata.
+<br><br>
+
+<h1 id="setup">Setting up a Hudpack</h1>
+<hr>
+Before we can start writing our hudpack, we first need to configure Hudder so it knows we want to use one.
+<br><br>
+
+<h4>Follow these steps:</h4>
+
+<ol>
+	<li>
+		Open Hudder's settings and go to the <b>Advanced</b> section.<br>
+		Set the Compiler type setting to <b>pack</b>.
+	</li>
+
+	<li>
+		Navigate to Hudder's configuration folder and create a new directory.<br>
+		The name of this directory will be the name of your hudpack.
+	</li>
+
+	<li>
+		Go back to Hudder's settings and open the <b>General</b> section.<br>
+		Set the Main file setting to the name of the directory you just created.
+	</li>
+
+	<li>
+		Inside the directory you created, create a file called <b>pack.json</b>.
+	</li>
+</ol>
+
+<note>The pack compiler accepts both folders and <b>.zip</b> files. As long as the pack is placed inside the Hudder folder, it can be loaded the same way.</note>
+
+This file contains the metadata and configuration for the hudpack itself.
+<br><br><br><br>
+
+<h1 id="packjson">The pack.json file</h1>
+<hr>
+The <b>pack.json</b> file is the file that tells Hudder how your hudpack should behave.
+It defines things like pack settings, textures and which JavaScript files should be executed.
+<br><br>
+
+Here is a basic example:
+<code>{
+  "format_version": 1,
+  "textures": [
+    "textures/example.png"
+  ],
+  "settings": {
+    "example_setting": {
+      "name": "Example setting",
+      "type": "boolean",
+      "default_value": true
+    }
+  },
+  "points": [
+    {
+      "type": "topleft",
+      "path": "main.js",
+      "entry_function": "main"
+    }
+  ]
+}</code>
+<br><br>
+
+The following properties are currently supported:
+<table>
+	<tr>
+		<th>Property</th>
+		<th>Required</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><b>format_version</b></td>
+		<td>Yes</td>
+		<td>The format version used by this hudpack. Currently this should be set to <b>1</b>.</td>
+	</tr>
+	<tr>
+		<td><b>textures</b></td>
+		<td>No</td>
+		<td>A list of texture paths inside the hudpack. This is used if your hudpack wants to render textures that are bundled with it.</td>
+	</tr>
+	<tr>
+		<td><b>settings</b></td>
+		<td>No</td>
+		<td>A map of user-configurable settings exposed by the hudpack.</td>
+	</tr>
+	<tr>
+		<td><b>points</b></td>
+		<td>Yes</td>
+		<td>A list of execution points. These tell Hudder which script to run, when to run it and which function to call.</td>
+	</tr>
+</table>
+<br><br>
+
+<h3>textures</h3>
+The <b>textures</b> property is an array of paths to texture files inside the hudpack.
+<br><br>
+Example:
+<code>"textures": [
+  "textures/example.png",
+  "textures/icons/thing.png"
+]</code>
+<br><br>
+You only need to define this if your hudpack wants to render its own textures.
+<br><br>
+
+<h3>settings</h3>
+The <b>settings</b> property lets you define settings that will appear in the hudpack's settings menu.
+Each entry inside <b>settings</b> uses its key as the internal setting name.
+<br><br>
+
+Each setting supports the following properties:
+<table>
+	<tr>
+		<th>Property</th>
+		<th>Required</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><b>name</b></td>
+		<td>Yes</td>
+		<td>The name shown to the user in the settings menu.</td>
+	</tr>
+	<tr>
+		<td><b>type</b></td>
+		<td>Yes</td>
+		<td>The setting type. Supported values are <b>boolean</b>, <b>string</b>, <b>number</b> and <b>hex</b>.</td>
+	</tr>
+	<tr>
+		<td><b>default_value</b></td>
+		<td>Yes</td>
+		<td>The default value of the setting. This must match the given type.</td>
+	</tr>
+</table>
+<br><br>
+
+Example:
+<code>"settings": {
+  "show_thing": {
+    "name": "Show thing",
+    "type": "boolean",
+    "default_value": true
+  },
+  "text_color": {
+    "name": "Text color",
+    "type": "hex",
+    "default_value": "#ffffff"
+  }
+}</code>
+<br><br>
+
+<note>Inside JavaScript files you can retrieve the value of a hudpack setting using the built-in function <inline-code>getHudSetting(key)</inline-code>.</note>
+
+Example:
+<code>let showThing = getHudSetting("show_thing");</code>
+<br><br>
+
+<h3>points</h3>
+The <b>points</b> property is an array of execution points.
+Each point tells Hudder which JavaScript file should be loaded and which function inside that file should be called.
+<br><br>
+
+Each point supports the following properties:
+<table>
+	<tr>
+		<th>Property</th>
+		<th>Required</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td><b>type</b></td>
+		<td>Yes</td>
+		<td>Determines where or how this point is used. Supported values are <b>topleft</b>, <b>bottomleft</b>, <b>topright</b>, <b>bottomright</b>, <b>mute</b> and <b>elements</b>.</td>
+	</tr>
+	<tr>
+		<td><b>path</b></td>
+		<td>Yes</td>
+		<td>The path to the JavaScript file inside the hudpack.</td>
+	</tr>
+	<tr>
+		<td><b>entry_function</b></td>
+		<td>Yes</td>
+		<td>The name of the function that should be called when this point is executed.</td>
+	</tr>
+	<tr>
+		<td><b>conditions</b></td>
+		<td>No</td>
+		<td>A list of conditions that must all pass before this point is executed.</td>
+	</tr>
+</table>
+<br><br>
+
+Example:
+<code>"points": [
+  {
+    "type": "topleft",
+    "path": "main.js",
+    "entry_function": "renderTopLeft"
+  },
+  {
+    "type": "elements",
+    "path": "elements.js",
+    "entry_function": "buildElements",
+    "conditions": [
+      "removegui"
+    ]
+  }
+]</code>
+<br><br>
+
+<note>If multiple points reference the same JavaScript file, they will share the same runtime and execution context. This means variables and state created in one point will persist and be accessible in other points that use the same script.</note>
+
+A condition can be a boolean variable that Hudder has.
+If any condition fails, that point will not be executed.
+<br><br><br><br>
