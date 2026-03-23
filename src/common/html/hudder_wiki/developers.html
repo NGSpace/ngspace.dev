@@ -9,8 +9,8 @@
 	<h1 id="preparations">Preparations</h1>
 	<hr><h4>Here's a list of what you will need to have prepared:</h4>
 	<ul>
-		<li>JDK 21 or above (<a href="https://adoptium.net/temurin/releases">Free and open source builds by Adoptium</a>)</li>
-		<li>A code editor/IDE (ex. <a href="https://eclipseide.org/">Eclipse</a>, <a href="https://www.jetbrains.com/idea/">Intellij</a>, <a href="https://zed.dev/">Zed</a>, <a href="https://code.visualstudio.com/">VSSpyware</a> Windows notepad, vim, emacs, NNUEdit [<i>It's dead, don't ask me to update it</i>], Notepad++)</li>
+		<li>JDK 21 or above (JDK 25 is required since Minecraft 26.1, <a href="https://adoptium.net/temurin/releases">Free and open source builds by Adoptium</a>)</li>
+		<li>A code editor/IDE (ex. <a href="https://eclipseide.org/">Eclipse</a>, <a href="https://www.jetbrains.com/idea/">Intellij</a>, notepad++, vim, emacs or NNUEdit [<i>It's dead, don't ask me to update it</i>])</li>
 		<li>A fabric mod (<a href="https://fabricmc.net/develop/">Follow the tutorial if you don't know how to make one</a>)</li>
 		<li>A warm blanket, hot chocolate and a loving hug (from me 🫂❤️) [You'll need it 🫠]</li>
 	</ul>
@@ -68,7 +68,7 @@
 <h1 id="variables">Creating your own variables</h1>
 <hr>
 <note>In the Hudder compiler, all system variables must return always return a value.</note>
-<warning>As of 9.0.0, ObjectDataAPI has been deprecated and marked for removal in-favor of DataVariableRegistry</warning>
+<warning>In 9.0.0 the ObjectDataAPI has been deprecated and marked for removal in-favor of DataVariableRegistry, in 10.0.0 it was removed.</warning>
 Want to add your own variables? For that you can use the DataVariableRegistry.
 <br>
 Example:
@@ -147,31 +147,37 @@ AUIElementManager has the following Functions:
 	</tr>
 </table>
 <br><br>
-ATextCompiler is the compiler that has called this function to be executed (ex. If the function was called using Hudder, then HudderV2Compiler will be provided, if it's JavaScript than JavaScriptCompiler will be provided, etc.)
-<br>ATextCompiler has the following functions:
+AHudCompiler&#60;T&#62; is the compiler that has called this function to be executed (ex. If the function was called using Hudder, then HudderV2Compiler will be provided, if it's JavaScript than JavaScriptCompiler will be provided, etc.)
+<br><br>
+T is the type of object the compiler takes as input
+<br><br>
+AHudCompiler&#60;T&#62; has the following methods:
+<br><br>
 <table>
 	<tr>
-		<th>Function</th>
+		<th>Method</th>
 		<th>Description</th>
 	</tr>
 	<tr>
-		<td><inline-code>HudInformation compile(HudderConfig info, String text, String filename)</inline-code></td>
-		<td>Compiles the provided string.</td>
+		<td><inline-code>T processFile(String filepath) throws CompileException</inline-code></td>
+		<td>Processes the file at the given path into something the compiler can execute.</td>
 	</tr>
 	<tr>
-		<td><inline-code>Object getVariable(String key)</inline-code></td>
+		<td><inline-code>HudInformation execute(HudderConfig info, T processedFile, String filename) throws ExecutionException</inline-code></td>
+		<td>Execute the processed file.</td>
+	</tr>
+	<tr>
+		<td><inline-code>Object getVariable(String key) throws ExecutionException</inline-code></td>
 		<td>Returns a variable with the key, could be a system or user defined variable.</td>
 	</tr>
 	<tr>
-		<td><inline-code>void put(String key, Object value)</inline-code></td>
-		<td>Set the value of a user-defined variable.</td>
-	</tr>
-	<tr>
-		<td><inline-code>Object get(String key)</inline-code></td>
-		<td>Get the value of a user defined variable.</td>
+		<td><inline-code>HudInformation processAndExecute(HudderConfig config, String filepath, String filename)
+					throws CompileException, ExecutionException</inline-code></td>
+		<td>Processes the given file and executes it.</td>
 	</tr>
 </table>
-<br><br>
+<br>
+<br>
 ObjectWrapper[] is an array containing all the values passed into the functions.<br>
 ObjectWrapper has the following functions:
 <table>
@@ -319,7 +325,7 @@ First thing: we'll need a class:
 
 <code>class CustomCompiler extends AV2Compiler {
 	@Override
-	public V2Runtime buildRuntime(HudderConfig info, String text, CharPosition charPosition, String filename, V2Runtime scope) throws CompileException {
+	public V2Runtime buildRuntime(HudderConfig info, String text, TextPos textpos, String filename, V2Runtime scope) throws CompileException {
 		//Init the runtime
 		V2Runtime runtime = new V2Runtime(this, scope);
 		//Add all the text
@@ -330,14 +336,11 @@ First thing: we'll need a class:
 <br>
 The "info" variable contains all of hudder's settings in the forms of variables, this may be useful if you need to read hudder's settings however you still lack the ability to add/read your own.
 <br>The "text" variable contains the text we want to compile (ex. "FPS: {fps}").
-<br>The "charPosition" variable tells you where in the file you are (IMPORTANT: the text variable should already come cut to only the needed instructions, this is for debug purposes).
+<br>The "textpos" variable tells you where in the file you are (IMPORTANT: the text variable should already come cut to only the needed instructions, this is for debug purposes).
 <br>The "filename" variable tells you the name of the file you're currently processing.
 <br>The "scope" variable should be the parent runtime of the runtime you are building, all scoped values set in the parent runtime should apply to the runtime you are currently building.
 <br><br>
 If you used this compiler it will just echo back whatever you put in the mainfile which will be useless so...
-
-<h3>Registering the compiler</h3>
-Just use <inline-code>Compilers.registerCompiler("custom_compiler", new CustomCompiler())</inline-code>
 
 <h3>Adding variable and function support</h3>
 Don't want to code your own variable and function system? No worries! The V2Runtime has you covered,
@@ -362,9 +365,14 @@ for (int ind = 0;ind&#60;text.length();ind++) {
 			ind++;
 			c = text.charAt(ind);
 			if (c=='%') {
-				CharPosition position = getPosition(ind, text);
+				TextPos position = getPosition(ind, text);
 				//Add whatever text is left in the text builder
-				runtime.addRuntimeElement(new VariableV2RuntimeElement(variableBuilder.toString(), this, runtime, position.line, position.charpos));
+				try {
+					runtime.addRuntimeElement(new VariableV2RuntimeElement(variableBuilder.toString(), this, runtime, position.line(), position.column()));
+				} catch (ExecutionException e) {
+					e.printStackTrace();
+					throw new CompileException(e);
+				}
 				break;
 			}	
 			variableBuilder.append(c);
@@ -376,6 +384,11 @@ runtime.addRuntimeElement(new StringV2RuntimeElement(textBuilder.toString(), fal
 return runtime;
 </code>
 This will make it such that all text between 2 % are treated as variables: <inline-code>%fps%</inline-code>
+
+
+<h3>Registering the compiler</h3>
+Just use <inline-code>Compilers.registerCompiler("custom_compiler", new CustomCompiler())</inline-code>
+
 <br><br><br><br>
 
 
@@ -392,16 +405,15 @@ This will make it such that all text between 2 % are treated as variables: <inli
 
 <h1 id="avartextcompiler">Writing your own Compiler from scratch</h1>
 <hr>
-<note>I don't recommend making your own compiler and runtime instead of using the V2Runtime.</note>
-<note>Extending AVarTextCompiler instead of ATextCompiler will help you with the basics of a variable system (Ex adding a function to access Hudder variables).</note>
+To help with getting started, Hudder contains some extensions of AHudCompiler to help prevent code repetition:
+<code>ATextCompiler - Extends AHudCompiler&#60;String&#62; - As well as already dealing with the reading of file, provides functions to help with parsing text.
+AVarTextCompiler - Extends ATextCompiler - Helps setting up a variable system
+AScriptingLanguageCompiler - Extends AVarTextCompiler - Intended to help with bringing third party scripting languages to Hudder,
+  sets up everything but the engine itself, including hooks to the Function And Consumer API and caching.</code>
+AV2Compiler - Extends AVarTextCompiler - (Has it's own section explaining it below)
+<br><br>
+	
+I don't recommend making your own compiler and runtime instead of using the V2Runtime or using AScriptingLanguageCompiler (If you already have an engine ready).
 
-<code>public class CustomCompiler extends AVarTextCompiler {
-	@Override
-	public HudInformation compile(HudderConfig info, String text, String filename) throws CompileException {
-		return new HudInformation(text, 0, "", 0, "", 0, "", 0, new AUIElement[0]);
-	}
-}</code>
-<br>
-Same variables as before but beyond that you're kinda on your own so unless you're dedicated you should use the help of third parties for some stuff...
-
+If you still choose to extend AHudCompiler&#60;T&#62; yourself then you're kinda on your own.
 <br><br><br><br><br>
