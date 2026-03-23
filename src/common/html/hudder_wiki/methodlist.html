@@ -46,7 +46,6 @@
 - text of the compiled hud with the current one, UI Elements get added whether addText is true or false.
 ;writeValue, [String key], [Number/String/Boolean/Character value]; - Writes a value to memory, able to be retrieved across restarts.
 - The unsafe operations option disables the value type limitations however one should expect type casting issues.
-;set([String key], [Any value]); - sets the value of the given variable to the given value (Alias: setVal)
 </code>
 <br><br>
 
@@ -55,7 +54,11 @@
 <h1>Deprecated methods</h1>
 <hr>
 <deprecatedwarning>All deprecated methods will be or have been removed.</deprecatedwarning>
-<code>;strwidth, [String text], [String variable];
+<code>;set([String key], [Any value]); - sets the value of the given variable to the given value (Alias: setVal)
+Deprecated in version 10.0.0
+Deprecated due to being an anti-pattern
+
+;strwidth, [String text], [String variable];
 Deprecated in version 5.0.0, removed in version 5.5.0 (Use the strwidth Function)
 
 ;exists, [String text], [String variable];
