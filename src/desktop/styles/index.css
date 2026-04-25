@@ -6,13 +6,13 @@
 }
 
 html {
-	scrollbar-transition: smooth;
 	scroll-behavior: smooth;
 }
 
 #aboutmespan {
 	color: wheat;
-	font-size: 30px;
+	font-size: 40px;
+	margin: 10px;
 }
 body {
 	margin: 0px;
@@ -65,7 +65,6 @@ body {
 	background-color: #929292;
 }
 .tabcontent {
-	display: none;
 	padding: 0px 0px;
 	border: none;
 }
@@ -110,7 +109,6 @@ body {
 	display:inline-block;
 	background: #595959;
 	text-wrap: nowrap;
-	wrap: nowrap;
 	overflow: hidden;
 	list-style: none;
 	white-space: nowrap;
@@ -141,6 +139,9 @@ body {
 	border: none;
 	transition: opacity .2s ease-in-out;
 	opacity: 0;
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
 }
 #ProjectsContentPane div:hover figcaption {
 	opacity: 1;

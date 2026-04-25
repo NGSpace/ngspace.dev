@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" href="Styles/index.css">
+	<link rel="stylesheet" href="Styles/nnuedit.css">
+	<link rel="stylesheet" href="Styles/titlebar.css">
+	<style>
+	.spotifier-docs {
+  max-width: 60%;
+  margin: 40px auto;
+  padding: 32px;
+  padding-top: 1px;
+  margin-top: 0px;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #e8f5e9;
+  background: #121212;
+  border-radius: 16px;
+}
+
+.spotifier-docs h1 {
+  margin-top: 0;
+  color: #1db954;
+  font-size: 2.5rem;
+}
+
+.spotifier-docs h2 {
+  margin-top: 32px;
+  color: #1db954;
+  border-bottom: 1px solid #2a2a2a;
+  padding-bottom: 8px;
+}
+
+.spotifier-docs h3 {
+  margin-top: 24px;
+  color: #ffffff;
+}
+
+.spotifier-docs a {
+  color: #1db954;
+}
+
+.spotifier-docs ol,
+.spotifier-docs ul {
+  padding-left: 24px;
+}
+
+.spotifier-docs li {
+  margin-bottom: 10px;
+}
+
+.spotifier-docs code {
+  background: #222;
+  color: #1db954;
+  padding: 2px 6px;
+  border-radius: 5px;
+  font-family: Consolas, monospace;
+}
+
+.spotifier-docs strong {
+  color: #ffffff;
+}
+</style>
+</head>
+<body>
+	<div id="topbar">
+		<a href="index.html"><img src="Images/ngs.webp"></a>
+		<span id="TitleNGS">NGS</span><span id="TitleS">'s</span>
+		<span id="TitleLAND">land</span>
+	</div>
+	<center>
+		<div id="ContentPane" height="fit-content">
+			<a id="HudderTitle" class="ImageAndText" style="text-decoration: none;" href="https://modrinth.com/mod/hudder">
+				<image id="HudderLogo" style="width:80px" src="/Images/spotifier.webp">
+				<span id="Hudder" style="color: rebeccapurple;">&nbsp;Spotifier</span>
+			</a>
+			<br>
+			<div style="text-align:left" class="Text">
+				<p>
+				<a href="https://modrinth.com/mod/spotifier">Modrinth</a>
+				&nbsp;<a href="hudder.html">Hudder</a>&nbsp;
+				<a href="https://github.com/NGSpace/spotifier">Source Code</a>
+				</p>
+			</div>
+			<br>
+			<div style="text-align:left;font-size: 30px;" class="Text">
+					<p style="display:block;">
+					<section class="spotifier-docs">
+  <p>Add Spotify information to your Hudder HUD!</p>
+
+  <h2>Set up instructions</h2>
+  <ol>
+    <li>Go to <a href="https://developer.spotify.com/dashboard" style="font-size: 30px;">Spotify Developer Dashboard</a>.</li>
+    <li>Press <strong>Create App</strong>.</li>
+    <li>Set the <strong>Redirect URI</strong> to <code>http://127.0.0.1:8888/callback</code>.</li>
+    <li>Give it any name and description.</li>
+    <li>Press <strong>Save</strong>.</li>
+    <li>Copy <strong>Client ID</strong>.</li>
+    <li>Open Spotifier's in-game settings.</li>
+    <li>Go to <strong>Spotify Auth</strong>.</li>
+    <li>Paste your app's Client ID into the Client ID setting.</li>
+    <li>After saving, an authentication window should open. If not, check the game log for the URL.</li>
+    <li>Press <strong>Agree</strong>.</li>
+    <li>Use Spotifier.</li>
+  </ol>
+
+  <h2>Variables added by Spotifier</h2>
+
+  <h3>Spotifier</h3>
+  <ul>
+    <li><code>{has_spotifier}</code> - Will always return true.</li>
+    <li><code>{spotifier_connected}</code> - Is Spotifier connected and authenticated to Spotify's servers?</li>
+    <li><code>{spotifier}</code> - The Spotifier object. Do not use it unless you know what you are doing.</li>
+  </ul>
+
+  <h3>Booleans</h3>
+  <ul>
+    <li><code>{spotifier_paused}</code> - Is the song paused?</li>
+    <li><code>{spotifier_shuffle}</code> - Is the playlist shuffled?</li>
+  </ul>
+
+  <h3>Strings</h3>
+  <ul>
+    <li><code>{spotifier_repeat}</code> - The repeat status: <code>off</code>, <code>track</code>, or <code>context</code>.</li>
+    <li><code>{spotifier_track}</code> - The name of the track.</li>
+    <li><code>{spotifier_album}</code> - The name of the album.</li>
+    <li><code>{spotifier_album_type}</code> - The type of the album.</li>
+    <li><code>{spotifier_playlist}</code> - The name of the playlist.</li>
+  </ul>
+
+  <h3>Numbers</h3>
+  <ul>
+    <li><code>{spotifier_progress}</code> - The progress of the song, in milliseconds.</li>
+    <li><code>{spotifier_duration}</code> - The duration of the song, in milliseconds.</li>
+    <li><code>{spotifier_data_age}</code> - How old the data provided by Spotifier is, in milliseconds.</li>
+  </ul>
+
+  <h3>Arrays</h3>
+  <ul>
+    <li><code>{spotifier_artists}</code> - An array of credited artists in the song.</li>
+    <li><code>{spotifier_queue}</code> - An array of song elements containing <code>track</code>, <code>artists</code>, <code>album</code>, <code>duration</code>, and <code>album_type</code>.</li>
+  </ul>
+</section>
+					</p>
+				</div>
+			</div>
+	</center>
+	</br></br>
+</body>

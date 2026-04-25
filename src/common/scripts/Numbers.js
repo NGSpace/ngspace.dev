@@ -8,22 +8,22 @@ var guessesBox;
 
 var number;
 var guesses = defaultg;
-var r = false;
+var gameover = false;
 
 document.addEventListener("DOMContentLoaded", function(event) { 
 	textBox = document.getElementById("TextBox");
 	button = document.getElementById("Button");
 	resultBox = document.getElementById("ResultBox");
 	guessesBox = document.getElementById("GuessesBox");
-	r = true;
+	gameover = true;
 	Click();
 });
 
 function Click() {
-	if (r) {
+	if (gameover) {
 		number = getRandomInt(maximum);
 		SetGuesses(defaultg);
-		r = false;
+		gameover = false;
 		button.value = "Guess";
 		resultBox.innerHTML = "";
 		textBox.value = "";
@@ -34,7 +34,7 @@ function Click() {
 	if (num===number) {
 		RightGuess();
 		button.value = "Restart";
-		r = true;
+		gameover = true;
 	} else {
 		SetGuesses(guesses-1);
 		resultBox.style.color = "red";
@@ -46,9 +46,9 @@ function Click() {
 		} else 
 			resultBox.innerHTML = "Not a number";
 		if (guesses===0) {
-			resultBox.innerHTML = "You're A failuae!";
+			resultBox.innerHTML = "You're A failuae! (The number was " + number + ")";
 			button.value = "Restart";
-			r = true;
+			gameover = true;
 		}
 	}
 }

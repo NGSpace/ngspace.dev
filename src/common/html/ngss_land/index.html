@@ -4,64 +4,43 @@
 	<link rel="stylesheet" href="Styles/index.css">
 	<link rel="stylesheet" href="Styles/titlebar.css">
 	
-	<script>
-		const Def = "Projects";
-		function openTab(evt, TabName) {
-			var i, tabcontent, tablinks;
-			tabcontent = document.getElementsByClassName("tabcontent");
-			for (i = 0; i < tabcontent.length; i++) {
-				tabcontent[i].style.display = "none";
-			}
-			tablinks = document.getElementsByClassName("tablinks");
-			for (i = 0; i < tablinks.length; i++) {
-				tablinks[i].className = tablinks[i].className.replace(" active", "");
-			}
-			document.getElementById(TabName).style.display = "block";
-			evt.className += " active";
-			if(history.pushState) {
-				history.pushState(null, null, '?p=' + TabName);
-			}
-		}
-	</script>
+	<link rel="preload" href="/index.html">
+	<link rel="preload" href="/aboutme.html">
+	<link rel="preload" href="/blog.html">
 </head>
-<body onload="load()">
+<body>
 	<div id="topbar">
 		<a href="index.html"><img src="Images/ngs.webp" id="ngslogo"></a>
 		<span id="TitleNGS">NGS</span><span id="TitleS">'s</span>
-		<span id="TitleLAND">land</span></span>
+		<span id="TitleLAND">land</span>
 	</div>
 	<center>
 		<div id="ContentPane">
 			
 			<div class="tab">
-			
-				<button id="BlogButton" class="tablinks"onclick="openTab(this, 'Blog')">Blog</button>
-				<button id="ProjectsButton" class="tablinks"onclick="openTab(this, 'Projects')">Projects</button>
-				<button id="AboutMeButton" class="tablinks"onclick="openTab(this, 'AboutMe')">About me</button>
+				
+				<button id="BlogButton" class="tablinks" onclick="location.href='blog.html'">Blog</button>
+				<button id="ProjectsButton" class="tablinks" onclick="location.href='index.html'">Projects</button>
+				<button id="AboutMeButton" class="tablinks" onclick="location.href='aboutme.html'">About me</button>
 				
 				<div id="borderbottom"></div>
 			
-			</div>
-			<div id="Blog" class="tabcontent">
-				<div id="BlogContentPane" height="fit-content">
-					<div style="text-align:left" class="Text">
-						<p>
-							Not weady yet >_<
-						</p>
-					</div>
-				</div>
 			</div>
 			<div id="Projects" class="tabcontent">
 				<div id="ProjectsContentPane">
 					<br>
 					<div><a href="hudder.html">
 						<image src="/hudder/Images/Hudder.webp">
-						<figcaption>Hudder (Java)</figcaption>
+						<figcaption>Hudder (Minecraft Mod)</figcaption>
 					</a></div>
-					<div><a href="HG.html">
+					<div><a href="spotifier.html">
+						<image src="Images/spotifier.webp">
+							<figcaption>Spotifier (Hudder Extension)</figcaption>
+					</a></div>
+					<!--div><a href="HG.html">
 						<image src="Images/HG_Old_SS.webp">
 							<figcaption>Unnamed Game (HTML)</figcaption>
-					</a></div>
+					</a></div-->
 					
 					<!--div><a href="https://www.roblox.com/games/6939867224/The-Roads">
 						<image src="Images/The roads.webp">
@@ -69,7 +48,7 @@
 					</a></div-->
 					<div><a href="Numbers.html">
 						<image src="Images/Numbers.png">
-						<figcaption>Numbers! (HTML)</figcaption>
+						<figcaption>Numbers! (HTML Game)</figcaption>
 					</a></div>
 					
 					<div><a href="nnuedit.html">
@@ -83,29 +62,6 @@
 					</a></div>
 				</div>
 			</div>
-			<div id="AboutMe" class="tabcontent" style="font-size: 0;">
-				<span id="aboutmespan">
-<style>
-span {
-	text-align: center;
-}
-
-ul {
-	display: inline-block;
-	text-align: left;
-}
-ul a {
-	color: lightcoral;
-}
-ul a:visited {
-	color: lightcoral;
-}
-</style>
-WIP
-				</span>
-				<br>
-				<div style="font-size:20px;"></br></div>
-			</div>
 			<div id="borderbottom" style="font:initial;">
 				<a href="https://github.com/NGSpace">Github</a>
 				<a href="https://liberapay.com/NGSpace/">Liberapay</a>
@@ -114,18 +70,39 @@ WIP
 		</div>
 	</center>
 	<script>
-	function load() {
-		const Loc2 = window.location.search;
-		const urlParams = new URLSearchParams(Loc2);
-		if (urlParams.has('p')){
-			var Loc = urlParams.get('p');
-			if (Loc!="") {
-				openTab(document.getElementById(Loc+"Button"), Loc);
+		document.querySelectorAll("figcaption").forEach((caption) => {
+			if (caption.scrollWidth <= caption.clientWidth) return;
+			
+			let direction = 1;
+			let pauseUntil = 0;
+			
+			const speed = 0.5;      // px per frame
+			const pauseTime = 1000; // ms
+			
+			function step(time) {
+				if (time >= pauseUntil) {
+					const maxScroll = caption.scrollWidth - caption.clientWidth;
+					
+					caption.scrollLeft += direction * speed;
+					
+					if (caption.scrollLeft >= maxScroll) {
+						caption.scrollLeft = maxScroll;
+						direction = -1;
+						pauseUntil = time + pauseTime;
+					}
+					
+					if (caption.scrollLeft <= 0) {
+						caption.scrollLeft = 0;
+						direction = 1;
+						pauseUntil = time + pauseTime;
+					}
+				}
+				
+				requestAnimationFrame(step);
 			}
-		} else {
-			openTab(document.getElementById(Def+"Button"), Def);
-		}
-	}
+			
+			requestAnimationFrame(step);
+		});
 	</script>
 </body>
 </html>
