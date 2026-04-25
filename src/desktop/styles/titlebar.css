@@ -14,10 +14,10 @@
 #topbar img {
 	position: absolute;
 	left: 0px;
-	padding-top: 1vh;
-	padding-left: 1vh;
+	margin-top: 1vh;
+	margin-left: 1vh;
 	height: 80%;
-	animation: rotation 20s infinite linear;
+	animation: rotation 16s infinite linear;
 	animation-play-state: paused;
 }
 #topbar img:hover {
@@ -35,6 +35,7 @@
 	-webkit-text-stroke: 2px pink;
 	color: transparent;
 }
+
 #topbar #TitleS {
 	color: gray;-webkit-text-stroke: 1px darkgray;
 }

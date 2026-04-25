@@ -29,7 +29,6 @@
 }
 #ContentPane p {
 	align-items: center;
-	vertical-alignment: middle;
 	font-size:30px;
 	overflow: hidden;
 }
