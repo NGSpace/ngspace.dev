@@ -19,6 +19,28 @@ getNumber([String]) - returns the Number variable with the given name
 getString([String]) - returns the String variable with the given name
 getBoolean([String]) - returns the Boolean variable with the given name
 readValue([String]) - Read a value set using writeValue</code> <br>
+	
+<h1 id="variables">Player stats</h1>
+<hr><br>
+
+<code>getTimesMinedStat([String BlockID]) - returns the amount of times the player mined the block with the given id
+getTimesCraftedStat([String ItemID]) - returns the amount of times the player crafted the given item
+getTimesUsedStat([String ItemID]) - returns the amount of times the player used the given item
+getTimesBrokenStat([String ItemID]) - returns the amount of times the player broken the given item
+getTimesPickedUpStat([String ItemID]) - returns the amount of times the player picked up the given item
+getTimesDroppedStat([String ItemID]) - returns the amount of times the player dropped the given item
+getTimesKilledStat([String EntityID]) - returns the amount of times the player killed the given entity
+getTimesKilledByStat([String EntityID]) - returns the amount of times the player was killed by the given entity
+getCustomStat([String CustomStatID]) - returns the value of the custom stat with the given id
+	(See <a href="https://minecraft.wiki/w/Statistics#List_of_custom_statistic_names">List of Custom statistics ids</a>)</code> <br>
+	
+<h1 id="variables">Input</h1>
+See <a href="https://minecraft.wiki/w/Controls#Configurable_controls">Java Edition Configurable Controls</a>
+<hr><br>
+
+<code>isKeybindDown([String KeybindID]) - is the given keybind currently held
+isKeybindDefault([String KeybindID]) - is the given keybind set to it's default value
+isKeybindUnbound([String KeybindID]) - is the given keybind unbound</code> <br>
 
 <h1>Math helper functions</h1>
 <hr>

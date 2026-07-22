@@ -45,13 +45,14 @@ This file contains the metadata and configuration for the hudpack itself.
 
 <h1 id="packjson">The pack.json file</h1>
 <hr>
+<note>Hudpack format version 1 was released in 10.0.0 and version 2 was released in 10.1.0</note>
 The <b>pack.json</b> file is the file that tells Hudder how your hudpack should behave.
 It defines things like pack settings, textures and which JavaScript files should be executed.
 <br><br>
 
 Here is a basic example:
 <code>{
-  "format_version": 1,
+  "format_version": 2,
   "textures": [
     "textures/example.png"
   ],
@@ -141,6 +142,11 @@ Each setting supports the following properties:
 		<td>Yes</td>
 		<td>The default value of the setting. This must match the given type.</td>
 	</tr>
+	<tr>
+		<td><b>values</b></td>
+		<td>No</td>
+		<td>An array of strings for the dropdown settings type (format version 2 or higher)</td>
+	</tr>
 </table>
 <br><br>
 
@@ -180,7 +186,7 @@ Each point supports the following properties:
 	<tr>
 		<td><b>type</b></td>
 		<td>Yes</td>
-		<td>Determines where or how this point is used. Supported values are <b>topleft</b>, <b>bottomleft</b>, <b>topright</b>, <b>bottomright</b>, <b>mute</b> and <b>elements</b>.</td>
+		<td>Determines where or how this point is used. Supported values are <b>topleft</b>, <b>bottomleft</b>, <b>topright</b>, <b>bottomright</b>, <b>mute</b> and <b>elements</b>. As well as <b>Dropdown</b> in version 2</td>
 	</tr>
 	<tr>
 		<td><b>path</b></td>
@@ -222,4 +228,29 @@ Example:
 
 A condition can be a boolean variable that Hudder has.
 If any condition fails, that point will not be executed.
+<br><br><br><br>
+
+<h1 id="functions">Extra functions</h1>
+<hr>
+<br><br>
+
+Hudpacks also have extra functions that are only available with hudpacks, they are:
+<table>
+	<tr>
+		<th>Function</th>
+		<th>Minimum version</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>readHudpackFile(String filename)</td>
+		<td>2</td>
+		<td>Reads the file of the given name (Only files provided by the hudpack)</td>
+	</tr>
+	<tr>
+		<td>readBinaryHudpackFile(String filename)</td>
+		<td>2</td>
+		<td>Reads the file of the given name to an array of bytes (Only files provided by the hudpack)</td>
+	</tr>
+</table>
+
 <br><br><br><br>
