@@ -5,11 +5,11 @@
 <warning>The indentation must be of a consistent type or unexpected issues may occur.</warning>
 <br/>
 
-<h2 id="if">1. If Statements</h2>
+<h2 id="if">1. If Else Statements</h2>
 <hr>
 
 <note>
-While this article does imply the existence of an <inline-code>#else</inline-code> statement, it does <i><b>not</b></i> exist.
+<inline-code>#else</inline-code> and <inline-code>#else if</inline-code> statements were added in Hudder 10.1.0
 </note>
 
 Hudder’s inline conditions are designed to be powerful and flexible. However, there are situations where you might want to write more complex logic, or simply prefer the improved readability of a block-based conditional.<br><br>
@@ -40,7 +40,17 @@ To define an <inline-code>#if</inline-code> block, write the keyword followed by
 In this example, a random number between 1 and 10 is generated and stored in the variable <inline-code>random</inline-code>.<br>
 The first <inline-code>#if</inline-code> checks whether the number is less than 5 — if so, it triggers an alert.<br>
 The second <inline-code>#if</inline-code> uses the negation operator <inline-code>!</inline-code> to check the opposite condition, displaying a different alert if the number is 5 or greater.
-</p>
+</p><br>
+
+<b>Else and Else if</b>
+Since 10.1.0 Hudder allows the usage of else and else if with the following syntax:
+<code>#if [condition]
+	[Operations to do if this condition is true]
+#else if [condition]
+	[Operations to do if this condition is true]
+#else
+	[Operations to do if none of the previous conditions were true]
+</code>
 
 <br><br>
 
