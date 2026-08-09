@@ -45,14 +45,14 @@ This file contains the metadata and configuration for the hudpack itself.
 
 <h1 id="packjson">The pack.json file</h1>
 <hr>
-<note>Hudpack format version 1 was released in 10.0.0 and version 2 was released in 10.1.0</note>
+<note>Hudpack format version 1 was released in 10.0.0, version 2 in 10.1.0 and version 3 in 10.2.0</note>
 The <b>pack.json</b> file is the file that tells Hudder how your hudpack should behave.
 It defines things like pack settings, textures and which JavaScript files should be executed.
 <br><br>
 
 Here is a basic example:
 <code>{
-  "format_version": 2,
+  "format_version": 3,
   "textures": [
     "textures/example.png"
   ],
@@ -83,7 +83,7 @@ The following properties are currently supported:
 	<tr>
 		<td><b>format_version</b></td>
 		<td>Yes</td>
-		<td>The format version used by this hudpack. Currently this should be set to <b>1</b>.</td>
+		<td>The format version this hudpack requires/supports.</td>
 	</tr>
 	<tr>
 		<td><b>textures</b></td>
@@ -135,7 +135,7 @@ Each setting supports the following properties:
 	<tr>
 		<td><b>type</b></td>
 		<td>Yes</td>
-		<td>The setting type. Supported values are <b>boolean</b>, <b>string</b>, <b>number</b> and <b>hex</b>.</td>
+		<td>The setting type. Supported values are <b>boolean</b>, <b>string</b>, <b>number</b>, <b>integer (whole numbers, minimum format version 3)</b>, <b>dropdown (minimum format version 2)</b> and <b>hex</b>.</td>
 	</tr>
 	<tr>
 		<td><b>default_value</b></td>
@@ -186,7 +186,7 @@ Each point supports the following properties:
 	<tr>
 		<td><b>type</b></td>
 		<td>Yes</td>
-		<td>Determines where or how this point is used. Supported values are <b>topleft</b>, <b>bottomleft</b>, <b>topright</b>, <b>bottomright</b>, <b>mute</b> and <b>elements</b>. As well as <b>Dropdown</b> in version 2</td>
+		<td>Determines where or how this point is used. Supported values are <b>topleft</b>, <b>bottomleft</b>, <b>topright</b>, <b>bottomright</b>, <b>mute</b> and <b>elements</b>.</td>
 	</tr>
 	<tr>
 		<td><b>path</b></td>
