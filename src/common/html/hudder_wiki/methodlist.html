@@ -16,19 +16,26 @@
 </code>
 
 <h1>Text Rendering</h1>
-<code>;text, [Number x], [Number y], [String/Component text], &#60;Number scale&#62;, &#60;HexColor color&#62;, &#60;Boolean shadow&#62;, &#60;Boolean background&#62;, &#60;HexColor bgcolor&#62; - Compile and then draw the provided text on screen.
+<code>;text, [Number x], [Number y], [String/Component text], &#60;Number scale&#62;, &#60;HexColor color&#62;, &#60;Boolean shadow&#62;, &#60;Boolean background&#62;, &#60;HexColor bgcolor&#62;, &#60;Number angle&#62;;
+- Compile and then draw the provided text on screen.
 ;topleft/topright/bottomleft/bottomright/mute, &#60;Number scale&#62;; - change which section to write to.
 </code>
 
-<h1>Custom element rendering (See <a href="rendering.html">Custom rendering</a> for more info)</h1>
-<code>;statusbar/xpbar/hotbar/helditemtooltip, [Number x], [Number y]; - Draw the provided Hud element on screen.
-;image, [String filename], [Number x], [Number y], [Number width], [Number height]; - Draws the provided Image on screen.
-;texture, [String id], [Number x], [Number y], [Number width], [Number height]; - Draws the provided Texture on screen.
-;9slicetexture [String filename], [Number x], [Number y], [Number width], [Number height], [Array slices]; - Draws a texture with 9slice scaling, The slices array is structured [left, right, top, bottom].
-;texturevertices, [String filename], [Array vertecies], [Array textures]; - Draws the provided image with the provided vertex and texture array
+<h1>Vertex Rendering (See <a href="rendering.html">Custom rendering</a> for more info)</h1>
+<code>;texturevertices, [String filename], [Array vertecies], [Array textures]; - Draws the provided image with the provided vertex and texture array
 ;colorvertices, [Array vertecies], [HexColor color]; - Draws a shape with the provided vertex array and color
 ;texturevertices_con, [String filename], [Array vertecies], [Array textures]; - Draws the provided image with the provided vertex and texture array (continous)
 ;colorvertices_con, [Array vertecies], [HexColor color]; - Draws a shape with the provided vertex array and color (continous)
+</code>
+
+<h1>Other Rendering</h1>
+<code>;statusbars/xpbar/hotbar/helditemtooltip, [Number x], [Number y]; - Draw the provided Hud element on screen.
+;image, [String filename], [Number x], [Number y], [Number width], [Number height]; - Draws the provided Image on screen.
+;texture, [String atlas], [String sprite], [Number x], [Number y], [Number width], [Number height]; - Draws the provided (Game) Texture on screen.
+;9slicetexture, [String filename], [Number x], [Number y], [Number width], [Number height], [Array slices]; - Draws a texture with 9slice scaling, The slices array is structured [left, right, top, bottom].
+;rectangle, [Number x], [Number y], [Number width], [Number height], [HexColor color]; - Draws a rectangle of the given color on screen.
+;gradient, [Number x], [Number y], [Number width], [Number height], [HexColor color1], [HexColor color2]; - Draws a gradient of the given colors on screen.
+;horizontal_gradient, [Number x], [Number y], [Number width], [Number height], [HexColor color1], [HexColor color2]; - Draws a gradient of the given colors on screen.
 </code>
 
 <h1>Debugging</h1>
@@ -42,8 +49,8 @@
 
 <h1>Other</h1>
 
-<code>;run, [String filename], &#60;Boolean addText&#62;, &#60;String compiler&#62;; - Compile the provided hud with the provided compiler, if "addText" is set to true then it will combine the
-- text of the compiled hud with the current one, UI Elements get added whether addText is true or false.
+<code>;run, [String filename], &#60;Boolean addText (Deprecated, should always be false)&#62;, &#60;String compiler&#62;; - Compile the provided hud with the provided compiler, if "addText" is set to true then it will combine the
+- text of the compiled hud with the current one, UI Elements always get added.
 ;writeValue, [String key], [Number/String/Boolean/Character value]; - Writes a value to memory, able to be retrieved across restarts.
 - The unsafe operations option disables the value type limitations however one should expect type casting issues.
 </code>

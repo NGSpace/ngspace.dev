@@ -3,13 +3,14 @@
 	<h1>Extending Hudder</h1>
 	<hr>
 	<warning>You will need to know Basic Java for this</warning>
-	<note>This page is only guaranteed to work on the latest versions!</note>
+	<note>This page is only guaranteed to work on the latest versions (Last updated: 17/08/26 for Hudder 10.3.0)!</note>
 	<note>If you ever face ambiguity feel free to ask me for help on&nbsp;<a href="discord.html">Hudder's discord</a>.</note>
+	<note>Hudder's config file has a "debug" setting which could help you by providing stack info and other debug info.</note>
 	So, you're a big smarty-pants and want to improve hudder without directly modifying it? No worries! I am here to help!
 	<h1 id="preparations">Preparations</h1>
 	<hr><h4>Here's a list of what you will need to have prepared:</h4>
 	<ul>
-		<li>JDK 21 or above (JDK 25 is required since Minecraft 26.1, <a href="https://adoptium.net/temurin/releases">Free and open source builds by Adoptium</a>)</li>
+		<li>JDK 25 or above (<a href="https://adoptium.net/temurin/releases">Free and open source builds by Adoptium</a>)</li>
 		<li>A code editor/IDE (ex. <a href="https://eclipseide.org/">Eclipse</a>, <a href="https://www.jetbrains.com/idea/">Intellij</a>, notepad++, vim, emacs or NNUEdit [<i>It's dead, don't ask me to update it</i>])</li>
 		<li>A fabric mod (<a href="https://fabricmc.net/develop/">Follow the tutorial if you don't know how to make one</a>)</li>
 		<li>A warm blanket, hot chocolate and a loving hug (from me 🫂❤️) [You'll need it 🫠]</li>
@@ -68,26 +69,30 @@
 <h1 id="variables">Creating your own variables</h1>
 <hr>
 <note>In the Hudder compiler, all system variables must return always return a value.</note>
+<warning>Prior to 10.3.0, the method for registering variables is <inline-code>DataVariableRegistry.registerVariable([Variable], VariableTypes.[TYPE], [Names]);</inline-code></warning>
 <warning>In 9.0.0 the ObjectDataAPI has been deprecated and marked for removal in-favor of DataVariableRegistry, in 10.0.0 it was removed.</warning>
 Want to add your own variables? For that you can use the DataVariableRegistry.
 <br>
 Example:
 <code>// Register a String variable
-DataVariableRegistry.registerVariable(k-&#62;"Walter white", VariableTypes.STRING, "name");
+DataVariableRegistry.registerStringVariable(k-&#62;"Walter white", "name");
 // Register a Number variable
-DataVariableRegistry.registerVariable(k-&#62;308, VariableTypes.NUMBER, "address");
+DataVariableRegistry.registerNumberVariable(k-&#62;308, "address");
 // Register a Boolean variable
-DataVariableRegistry.registerVariable(k-&#62;true, VariableTypes.BOOLEAN, "dead", "2nd_variable_name");
+DataVariableRegistry.registerBooleanVariable(k-&#62;true, "dead", "2nd_variable_name");
 // Register a Variable of any type
-DataVariableRegistry.registerVariable(k-&#62;new Object() {
+DataVariableRegistry.registerObjectVariable(k-&#62;new Object() {
 	@Override
 	public String toString() {
 		return "This is a dummy object";
 	}
-}, VariableTypes.OBJECT, "dummy_object");
+}, "dummy_object");
 </code>
-The function "registerVariable" is defined as such:
-<code>public static &#60T&#62 void registerVariable(DataVariable<?> variable, VariableTypes.Type&#60T&#62 type, String... names)</code>
+The registerations functions are defined as such:
+<code>public static &#60T&#62 void registerStringVariable(DataVariable&#60String&#62 variable, String... names)</code>
+<code>public static &#60T&#62 void registerNumberVariable(DataVariable&#60Number&#62 variable, String... names)</code>
+<code>public static &#60T&#62 void registerBooleanVariable(DataVariable&#60Boolean&#62 variable, String... names)</code>
+<code>public static &#60T&#62 void registerObjectVariable(DataVariable&#60Object&#62 variable, String... names)</code>
 <br><br>
 They are guranteed to be applied to all first party compilers included in Hudder as well as any third party compilers that uses the <inline-code>DataVariableRegistry</inline-code> getters.
 <br><br><br><br>
@@ -122,10 +127,11 @@ They are guranteed to be applied to all first party compilers included in Hudder
 <h1 id="functionsandmethods">Creating your own Functions and Consumers (Methods)</h1>
 <hr>
 <note>Hudder calls "consumers" "method" but they behave the same</note>
+<warning>The `position` and `config` were added in 10.3.0, the older methods have also been deprecated.</warning>
 Want to add your own custom functions and consumers for existing compilers (Ex. Hudder or JavaScript)? For that you can use the FunctionAndConsumerAPI.
 <br><br>
-It allows you to add your own functions and consumers using the <inline-code>registerFunction(Function, FunctionNames...)</inline-code>
-and <inline-code>registerConsumer(Consumer, ConsumerNames...)</inline-code> respectively.
+It allows you to add your own functions and consumers using the <inline-code>registerFunction(BindablePositionedFunction, names...)</inline-code>
+and <inline-code>registerConsumer(BindablePositionedConsumer, names...)</inline-code> respectively.
 <br><br><br>
 Both Consumers and Functions take the same arguments: <inline-code>AUIElementManager, ATextCompiler and ObjectWrapper[]</inline-code>.
 <br><br>
@@ -151,7 +157,7 @@ AHudCompiler&#60;T&#62; is the compiler that has called this function to be exec
 <br><br>
 T is the type of object the compiler takes as input
 <br><br>
-AHudCompiler&#60;T&#62; has the following methods:
+Some of the methods AHudCompiler&#60;T&#62; provides include:
 <br><br>
 <table>
 	<tr>
@@ -159,7 +165,7 @@ AHudCompiler&#60;T&#62; has the following methods:
 		<th>Description</th>
 	</tr>
 	<tr>
-		<td><inline-code>T processFile(String filepath) throws CompileException</inline-code></td>
+		<td><inline-code>T processFile(HudderConfig config, String filepath) throws CompileException, IOException</inline-code></td>
 		<td>Processes the file at the given path into something the compiler can execute.</td>
 	</tr>
 	<tr>
@@ -172,8 +178,20 @@ AHudCompiler&#60;T&#62; has the following methods:
 	</tr>
 	<tr>
 		<td><inline-code>HudInformation processAndExecute(HudderConfig config, String filepath, String filename)
-					throws CompileException, ExecutionException</inline-code></td>
+					throws CompileException, ExecutionException, IOException</inline-code></td>
 		<td>Processes the given file and executes it.</td>
+	</tr>
+	<tr>
+		<td><inline-code>String[] getSupportedFileFormats()</inline-code></td>
+		<td>Returns an array of file formats this compiler supports</td>
+	</tr>
+	<tr>
+		<td><inline-code>boolean isValidFilePath(String filepath)</inline-code></td>
+		<td>Returns whether or not this compiler supports this file</td>
+	</tr>
+	<tr>
+		<td><inline-code>void edit(File file)</inline-code></td>
+		<td>Open the given file in a supported editor</td>
 	</tr>
 </table>
 <br>
@@ -225,25 +243,34 @@ ObjectWrapper has the following functions:
 		<td><inline-code>float[] asFloatArray()</inline-code></td>
 		<td>Returns the value of the arguement in the form of an array of floats.</td>
 	</tr>
+	<tr>
+		<td><inline-code>Component asComponent()</inline-code></td>
+		<td>Returns the value of the arguement in the form of a Minecraft text Component.</td>
+	</tr>
+	<tr>
+		<td><inline-code>Identifier asIdentifier()</inline-code></td>
+		<td>Returns the value of the arguement in the form of a Minecraft Identifier.</td>
+	</tr>
 </table>
 <br><br><br><br>
 To create your own function do the following:
-<code>FunctionAndConsumerAPI.getInstance().registerFunction((elementmanager,compiler,arg)-&gt; {
+<code>FunctionAndConsumerAPI.getInstance().registerFunction((elementmanager,compiler,position,config,arg)-&gt; {
 	if (arg.length&lt;1)
-		throw new CompileException("sayhi function requires at least one arguement!");
+		throw new ExecutionException("sayhi function requires at least one arguement!", position);
 	String name = arg[0].asString();
 	return "Hi " + name + "!";
 }, "sayhi");
 </code>
 <br><br><br>
 To create your own consumer do the following:
-<code>FunctionAndConsumerAPI.getInstance().registerConsumer((elementmanager,compiler,arg)-&gt; {
+<code>FunctionAndConsumerAPI.getInstance().registerConsumer((elementmanager,compiler,position,config,arg)-&gt; {
 	if (arg.length&lt;1)
-		throw new CompileException("sayhi function requires at least one arguement!");
+		throw new ExecutionException("sayhi function requires at least one arguement!", position);
 	String name = arg[0].asString();
 	Hudder.alert("Hi " + name + "!");
 }, "sayhi");
 </code>
+
 <br><br><br><br>
 
 
@@ -274,8 +301,7 @@ To create your own consumer do the following:
 To create your own UIElement you simply need to create a class that extends AUIElement and override the renderElement method.
 <br><br>
 The <inline-code>AUIElement</inline-code> class is the base class for all UIElements. It provides the basic functionality for rendering and managing UIElements.
-It has only one method: <inline-code>renderElement(DrawContext context, HudderRenderer renderer, RenderTickCounter delta)</inline-code>.
-If you're using official mojang mappings for your mod, "DrawContext" will be called "GuiGraphics" and "RenderTickCounter" will be called "DeltaTracker".
+It has only one method: <inline-code>renderElement(GuiGraphicsExtractor graphics, HudderRenderer renderer, DeltaTracker delta)</inline-code>.
 <br><br>
 Here is a quick description of the arguments in the renderElement method:
 <table>
@@ -284,15 +310,15 @@ Here is a quick description of the arguments in the renderElement method:
 		<th>Description</th>
 	</tr>
 	<tr>
-		<td><inline-code>DrawContext context</inline-code></td>
-		<td>The context in which the UIElement is being rendered.</td>
+		<td><inline-code>GuiGraphicsExtractor graphics</inline-code></td>
+		<td>Minecraft's graphics extractor object.</td>
 	</tr>
 	<tr>
 		<td><inline-code>HudderRenderer renderer</inline-code></td>
-		<td>The HudderRenderer instance used to render this UIElement, it may have methods to assist you with rendering.</td>
+		<td>The HudderRenderer instance used to render this UIElement, it also contains methods that may assist you with rendering.</td>
 	</tr>
 	<tr>
-		<td><inline-code>RenderTickCounter delta</inline-code></td>
+		<td><inline-code>DeltaTracker delta</inline-code></td>
 		<td>The delta tracker used to track the changes in the UIElement.</td>
 	</tr>
 </table>
@@ -318,102 +344,8 @@ Here is a quick description of the arguments in the renderElement method:
 
 
 
-<h1 id="v2runtime">Writing your own compiler using the V2 Runtime</h1>
+<h1 id="compiler">Writing your own compiler</h1>
 <hr>
-<note>The compiler needs to be created in it's own class/file, no lambdas or nested classes.</note>
-First thing: we'll need a class:
-
-<code>class CustomCompiler extends AV2Compiler {
-	@Override
-	public V2Runtime buildRuntime(HudderConfig info, String text, TextPos textpos, String filename, V2Runtime scope) throws CompileException {
-		//Init the runtime
-		V2Runtime runtime = new V2Runtime(this, scope);
-		//Add all the text
-		runtime.addRuntimeElement(new StringV2RuntimeElement(text, false, true));
-		return runtime;
-	}
-}</code>
-<br>
-The "info" variable contains all of hudder's settings in the forms of variables, this may be useful if you need to read hudder's settings however you still lack the ability to add/read your own.
-<br>The "text" variable contains the text we want to compile (ex. "FPS: {fps}").
-<br>The "textpos" variable tells you where in the file you are (IMPORTANT: the text variable should already come cut to only the needed instructions, this is for debug purposes).
-<br>The "filename" variable tells you the name of the file you're currently processing.
-<br>The "scope" variable should be the parent runtime of the runtime you are building, all scoped values set in the parent runtime should apply to the runtime you are currently building.
-<br><br>
-If you used this compiler it will just echo back whatever you put in the mainfile which will be useless so...
-
-<h3>Adding variable and function support</h3>
-Don't want to code your own variable and function system? No worries! The V2Runtime has you covered,
-all you need to do is write the syntax parse te text, create a VariableV2RuntimeElement and add it to the runtime!
-<br><br>
-Here is a quick example of a simple variable parser:
-
-
-<code>//Init the runtime
-V2Runtime runtime = new V2Runtime(this, scope);
-StringBuilder textBuilder = new StringBuilder();
-
-//Loop through every character in the file
-for (int ind = 0;ind&#60;text.length();ind++) {
-	char c = text.charAt(ind);
-	if (c=='%') {
-		StringBuilder variableBuilder = new StringBuilder();
-		runtime.addRuntimeElement(new StringV2RuntimeElement(textBuilder.toString(), false, true));
-		//Reset the text builder
-		textBuilder.setLength(0);
-		while (ind&#60;text.length()) {
-			ind++;
-			c = text.charAt(ind);
-			if (c=='%') {
-				TextPos position = getPosition(ind, text);
-				//Add whatever text is left in the text builder
-				try {
-					runtime.addRuntimeElement(new VariableV2RuntimeElement(variableBuilder.toString(), this, runtime, position.line(), position.column()));
-				} catch (ExecutionException e) {
-					e.printStackTrace();
-					throw new CompileException(e);
-				}
-				break;
-			}	
-			variableBuilder.append(c);
-		}
-	} else textBuilder.append(c);
-}
-//Add whatever text is left in the text builder
-runtime.addRuntimeElement(new StringV2RuntimeElement(textBuilder.toString(), false, true));
-return runtime;
-</code>
-This will make it such that all text between 2 % are treated as variables: <inline-code>%fps%</inline-code>
-
-
-<h3>Registering the compiler</h3>
-Just use <inline-code>Compilers.registerCompiler("custom_compiler", new CustomCompiler())</inline-code>
-
-<br><br><br><br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h1 id="avartextcompiler">Writing your own Compiler from scratch</h1>
-<hr>
-To help with getting started, Hudder contains some extensions of AHudCompiler to help prevent code repetition:
-<code>ATextCompiler - Extends AHudCompiler&#60;String&#62; - As well as already dealing with the reading of file, provides functions to help with parsing text.
-AVarTextCompiler - Extends ATextCompiler - Helps setting up a variable system
-AScriptingLanguageCompiler - Extends AVarTextCompiler - Intended to help with bringing third party scripting languages to Hudder,
-  sets up everything but the engine itself, including hooks to the Function And Consumer API and caching.</code>
-AV2Compiler - Extends AVarTextCompiler - (Has it's own section explaining it below)
-<br><br>
-	
-I don't recommend making your own compiler and runtime instead of using the V2Runtime or using AScriptingLanguageCompiler (If you already have an engine ready).
-
-If you still choose to extend AHudCompiler&#60;T&#62; yourself then you're kinda on your own.
+In it's current stage, I don't recommend, the compiler system is in a very fragile state and stuff *will* break.<br>
+If you still want to, ask me for help on discord because things change so fast and so much that keeping this page up to date is a sisyphean task.
 <br><br><br><br><br>

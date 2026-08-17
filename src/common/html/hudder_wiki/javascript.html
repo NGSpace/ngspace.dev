@@ -6,21 +6,7 @@
 <note>This article assumes you already understand basic JavaScript syntax and concepts. </note>
 
 <br>
-
-<h2 id="setup">1. Setup</h2>
-<hr>
-	
-<p>
-Using JavaScript is a little bit more complicated than using the Hudder language and requires a bit of setting up.
-<br><br>
-<b>First,</b> you need to enable JavaScript by going into Hudder's settings and toggling "JavaScript enabled".<br>
-<b>Second,</b> you need to change the "Compiler type" to "js".<br>
-<b>Alternatively,</b> if you want to use both JavaScript and Hudder in your hud, you can use the "run" method and give "js" as the second parameter.
-
-</p>
-
-<br>
-<h2 id="sections">2. Sections and Execution Order</h2>
+<h2 id="sections">1. Sections and Execution Order</h2>
 <hr>
 
 <p> To avoid recompiling on every frame, your script is compiled once. On each update, Hudder invokes functions by their section names and displays the returned values in the corresponding sections. </p> <br/>
@@ -74,7 +60,7 @@ var bottomrightscale = 2;</code>
 
 <br/><br/>
 
-<h2 id="functions">3.List of functions and their descriptions:</h2>
+<h2 id="functions">2.List of functions and their descriptions:</h2>
 <hr>
 <warning>All parameters are required. If not then they will be.</warning>
 
@@ -127,11 +113,6 @@ For simplicity and not having to do twice the work, those methods will not show 
 		<td>None</td>
 	</tr>
 	<tr>
-		<td><inline-code language="js">strwidth(String text)</inline-code></td>
-		<td>Returns the length of the string.</td>
-		<td>Number</td>
-	</tr>
-	<tr>
 		<td><inline-code language="js">compile(String filename, String compilertype)</inline-code></td>
 		<td>Compiles the file with the specified compilertype (or the javascript compiler if none is specified),
 			returns the compile results and adds the elements created by the file.</td>
@@ -139,22 +120,10 @@ For simplicity and not having to do twice the work, those methods will not show 
 		<td>CompileResult has the following properties {String topleft, String bottomleft, String topright, String bottomright,
 		Number topleftscale, Number bottomleftscale, Number toprightscale, Number bottomrightscale}</td>
 	</tr>
-	<tr>
-		<td><inline-code language="js">exists(String filename)
-		</inline-code></td>
-		<td>Returns true if a file exists in the hudder config dir.</td>
-		<td>Boolean</td>
-	</tr>
-	<tr>
-		<td><inline-code language="js">readValue(String key)
-		</inline-code></td>
-		<td>Read a value set using writeValue</td>
-		<td>Any</td>
-	</tr>
 </table>
 
 <br><br>
-<h2>4. Example</h2>
+<h2>3. Example</h2>
 <hr>
 <code language="js">function topleft() {
 	let fps = get("fps");
