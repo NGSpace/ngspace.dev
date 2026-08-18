@@ -164,8 +164,8 @@ You can use <inline-code>{boolean2||boolean1}</inline-code> to return true if ei
 
 <h2 id="components">Item components</h2>
 <hr>
-<note>Works in JavaScript, the values are a property of the returned object.</note>
 The <inline-code>getItem([Number slot])</inline-code> function returns an object that contains the following properties:<br>
+<br>
 <code>name - The name of the item
 item_name - The name of the item type (Even if name was modified with anvil/commands)
 damage - How much the item has been damaged
@@ -179,7 +179,6 @@ enchantment_glint_override - Imma be honest idk what this one does, check the mi
 trim - An object containing the following 3 properties:
   - material - The name of the material used on the armor piece's trim
   - pattern - The name of the pattern used on the armor piece's trim
-  - showintooltip - Whether it should show the armor trim in the item's tooltip (idk how this would be useful but it was easy to add so I added it.)
 enchantable - If not null, items with the component can be enchanted in an enchanting table.
 lore - An array of "Text" objects (use their getString function if you need a string)
 rarity - Can be of the following values: common, uncommon, rare and epic.
