@@ -36,6 +36,7 @@
 ;rectangle, [Number x], [Number y], [Number width], [Number height], [HexColor color]; - Draws a rectangle of the given color on screen.
 ;gradient, [Number x], [Number y], [Number width], [Number height], [HexColor color1], [HexColor color2]; - Draws a gradient of the given colors on screen.
 ;horizontal_gradient, [Number x], [Number y], [Number width], [Number height], [HexColor color1], [HexColor color2]; - Draws a gradient of the given colors on screen.
+;line, [Number x0], [Number y0], [Number x1], [Number y1], [HexColor color], [Number thickness]; - Draws a line of the given thickness and color from (x0, y0) to (x1, y1).
 </code>
 
 <h1>Debugging</h1>
@@ -49,7 +50,7 @@
 
 <h1>Other</h1>
 
-<code>;run, [String filename], &#60;Boolean addText (Deprecated, should always be false)&#62;, &#60;String compiler&#62;; - Compile the provided hud with the provided compiler, if "addText" is set to true then it will combine the
+<code>;run, [String filename], &#60;Boolean addText&#62;, &#60;String compiler&#62;; - Compile the provided hud with the provided compiler, if "addText" is set to true then it will combine the
 - text of the compiled hud with the current one, UI Elements always get added.
 ;writeValue, [String key], [Number/String/Boolean/Character value]; - Writes a value to memory, able to be retrieved across restarts.
 - The unsafe operations option disables the value type limitations however one should expect type casting issues.
