@@ -130,8 +130,8 @@ They are guranteed to be applied to all first party compilers included in Hudder
 <warning>The `position` and `config` were added in 10.3.0, the older methods have also been deprecated.</warning>
 Want to add your own custom functions and consumers for existing compilers (Ex. Hudder or JavaScript)? For that you can use the FunctionAndConsumerAPI.
 <br><br>
-It allows you to add your own functions and consumers using the <inline-code>registerFunction(BindablePositionedFunction, names...)</inline-code>
-and <inline-code>registerConsumer(BindablePositionedConsumer, names...)</inline-code> respectively.
+It allows you to add your own functions and consumers using the <inline-code>registerPositionedFunction(BindablePositionedFunction, names...)</inline-code>
+and <inline-code>registerPositionedConsumer(BindablePositionedConsumer, names...)</inline-code> respectively.
 <br><br><br>
 Both Consumers and Functions take the same arguments: <inline-code>AUIElementManager, ATextCompiler and ObjectWrapper[]</inline-code>.
 <br><br>
@@ -254,7 +254,7 @@ ObjectWrapper has the following functions:
 </table>
 <br><br><br><br>
 To create your own function do the following:
-<code>FunctionAndConsumerAPI.getInstance().registerFunction((elementmanager,compiler,position,config,arg)-&gt; {
+<code>FunctionAndConsumerAPI.getInstance().registerPositionedFunction((elementmanager,compiler,position,config,arg)-&gt; {
 	if (arg.length&lt;1)
 		throw new ExecutionException("sayhi function requires at least one arguement!", position);
 	String name = arg[0].asString();
@@ -263,7 +263,7 @@ To create your own function do the following:
 </code>
 <br><br><br>
 To create your own consumer do the following:
-<code>FunctionAndConsumerAPI.getInstance().registerConsumer((elementmanager,compiler,position,config,arg)-&gt; {
+<code>FunctionAndConsumerAPI.getInstance().registerPositionedConsumer((elementmanager,compiler,position,config,arg)-&gt; {
 	if (arg.length&lt;1)
 		throw new ExecutionException("sayhi function requires at least one arguement!", position);
 	String name = arg[0].asString();
